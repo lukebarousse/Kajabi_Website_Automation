@@ -83,8 +83,8 @@
 .luke-upsell .lu-item { margin: 0; padding: 0; }
 .luke-upsell .lu-item > summary {
   display: grid;
-  grid-template-columns: 24px 1fr auto 16px;
-  gap: 12px;
+  grid-template-columns: 36px 1fr auto 16px;
+  gap: 14px;
   align-items: center;
   padding: 10px 6px;
   margin: 0 -6px;
@@ -98,6 +98,38 @@
 .luke-upsell .lu-item > summary:hover {
   background: rgba(255,255,255,0.03);
 }
+
+/* Course logo (replaces the generic ✓/+ status circle).
+   Status (owned vs. added) is conveyed by the price column:
+   PAID tag + strikethrough price = owned, plain $X = added. */
+.luke-upsell .lu-course-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px;
+  box-sizing: border-box;
+  display: block;
+}
+.luke-upsell .lu-item.lu-paid .lu-course-icon {
+  opacity: 0.78;
+}
+.luke-upsell .lu-course-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--lu-text-faint);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0;
+}
+
+/* Legacy .lu-icon kept for backwards compat with any older cached HTML;
+   new generated pages use .lu-course-icon. Safe to remove once CDN is
+   confirmed fully refreshed. */
 .luke-upsell .lu-icon {
   width: 22px; height: 22px;
   border-radius: 50%;
@@ -148,7 +180,7 @@
 
 /* Expanded detail */
 .luke-upsell .lu-detail {
-  padding: 10px 0 16px 36px;
+  padding: 10px 0 16px 50px;
   animation: luSlide 0.2s ease-out;
 }
 @keyframes luSlide {
