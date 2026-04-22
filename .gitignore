@@ -1,0 +1,35 @@
+# Deny everything by default — only allowlisted files are tracked.
+# This keeps config, build scripts, READMEs, and tests proprietary.
+*
+
+# Allow this gitignore itself
+!.gitignore
+
+# Allow the project folder so we can descend into it
+!upsells/
+upsells/*
+
+# Allow only the CDN-served assets that Kajabi pages actually fetch
+!upsells/css/
+!upsells/css/**
+!upsells/js/
+!upsells/js/**
+!upsells/pages/
+!upsells/pages/**
+
+# Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+*.swp
+*.swo
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.log
+.vscode/
+.idea/
+node_modules/
