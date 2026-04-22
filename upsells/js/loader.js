@@ -9,52 +9,37 @@
 
    This script handles the rest:
      1. Injects upsell.css into <head>.
-     2. Fetches the matching pages/SLUG.html and injects it into
-        the container.
+     2. Fetches the matching pages/SLUG and injects it into the
+        container.
 
-   Cache model (two layers — both matter):
+   Hosting: Cloudflare Pages (atomic deploys). Every `git push` to
+   main triggers an auto-build; the new content replaces the old
+   atomically at the edge. Cloudflare serves files with
+   `Cache-Control: public, max-age=0, must-revalidate`, so browsers
+   re-validate via ETag on every request — visitors see fresh
+   content within seconds of a deploy landing, with 304s when
+   nothing changed. No purge step, no throttle, no stale-cache
+   mental model to carry.
 
-     CDN edge cache  (jsDelivr, ~12h TTL, query strings IGNORED on
-                     /gh/ paths) → cleared by scripts/purge.sh after
-                     every deploy. Throttled to ~1 purge per 30 min
-                     per path, so don't redeploy within that window.
-
-     Browser cache   (per visitor, 7-day max-age from CDN headers)
-                     → cleared by the ?t=Date.now() browser-cache
-                     buster appended to the CSS link and HTML fetch
-                     below. This does NOT bypass the edge; it only
-                     prevents the visitor's browser from serving its
-                     own 7-day-stale copy of whatever the edge last
-                     returned. Without it, a successful edge purge
-                     would take up to 7 days to reach each visitor.
-
-   Net propagation after ./scripts/deploy.sh:
-     push → edge purge (if not throttled) → next page load fetches
-     fresh from edge (browser cache miss guaranteed by ?t=now) →
-     typically <15 min end-to-end.
-
-   Only change that requires visitor action: editing loader.js itself.
-   loader.js is fetched without a cache-buster (by design — we want
-   browsers to cache it), so edits are capped by the 7-day browser
-   cache. Keep this file stable; edit rarely.
+   The only file whose updates lag for visitors is loader.js
+   itself: browsers still cache it (CF default), and Kajabi's
+   <script src="..."> tag references it directly. In practice,
+   ETag revalidation catches changes on next page load anyway.
+   Keep this file stable; edit rarely.
    ============================================================ */
 
 (function () {
   'use strict';
 
-  var REPO = 'lukebarousse/Kajabi_Website_Automation';
-  var BRANCH = 'main';
-  var BASE = 'https://cdn.jsdelivr.net/gh/' + REPO + '@' + BRANCH + '/upsells';
+  var BASE = 'https://lukebarousse-kajabi.pages.dev/upsells';
   var PAGES_URL = BASE + '/pages/';
   var CSS_URL = BASE + '/css/upsell.css';
-
-  var BROWSER_BUST = Date.now();
 
   function injectCss() {
     if (document.querySelector('link[data-luke-upsell-css]')) return;
     var link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = CSS_URL + '?t=' + BROWSER_BUST;
+    link.href = CSS_URL;
     link.setAttribute('data-luke-upsell-css', 'true');
     (document.head || document.documentElement).appendChild(link);
   }
@@ -66,7 +51,7 @@
       return;
     }
 
-    var url = PAGES_URL + pageName + '.html?t=' + BROWSER_BUST;
+    var url = PAGES_URL + pageName;
 
     fetch(url)
       .then(function (response) {
