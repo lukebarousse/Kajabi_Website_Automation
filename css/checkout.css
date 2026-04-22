@@ -19,6 +19,18 @@
      8. Disclaimer  (.lc-disclaimer)  — optional (chatgpt only)
    ============================================================ */
 
+/* ============================================================
+   KAJABI CHECKOUT — REMOVE TOP WHITESPACE
+   Pulls the checkout row (left content + right payment card)
+   up into the gap Kajabi reserves above the block. Scoped via
+   :has() so it only affects pages with .luke-checkout content.
+   ============================================================ */
+@media (min-width: 768px) {
+  .row:has(.luke-checkout) {
+    margin-top: -60px !important;
+  }
+}
+
 .luke-checkout {
   max-width: 620px;
   margin: 0 auto;
@@ -36,20 +48,26 @@
   line-height: 1.05;
   letter-spacing: -0.025em;
   margin: 0 0 14px;
+  /* No text-wrap: balance here — it fights the intentional <wbr> before
+     ' for …' and can yield 'Power BI for' | 'Data Analytics'. */
 }
 .luke-checkout .lc-header h2 {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 500;
   line-height: 1.35;
   color: var(--lb-text);
   margin: 0 0 16px;
+  /* When the subheading wraps to multiple lines, prefer balanced line
+     lengths (Chrome 114+, Safari 17.5+, Firefox 121+). Older browsers
+     ignore this and still get <wbr> + nbsp hints from generate.py. */
+  text-wrap: balance;
 }
 .luke-checkout .lc-accent {
   color: var(--lb-blue);
 }
 .luke-checkout .lc-tagline {
   font-style: italic;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--lb-text);
   line-height: 1.5;
   margin: 0;
@@ -477,6 +495,8 @@
     padding: 0 4px 40px;
   }
   .luke-checkout .lc-header h1 { font-size: 34px; }
+  .luke-checkout .lc-header h2 { font-size: 27px; }
+  .luke-checkout .lc-tagline { font-size: 18px; }
 
   /* Keep the 3-column trust strip horizontal even on mobile;
      just tighten the spacing and reduce number weight. */
