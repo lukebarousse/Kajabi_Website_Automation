@@ -1,49 +1,30 @@
 /* ============================================================
    LUKE'S KAJABI UPSELL STYLES
-   Shared across all upsell pages. Hosted via jsDelivr CDN.
-   
-   Change anything in this file, push to GitHub, all 10 pages
-   update automatically (jsDelivr cache may take up to 12 hours,
-   or force-refresh using a query string ?v=X).
+
+   Page-specific styles for the 6 upsell pages. Consumes design
+   tokens (colors, type, borders) from css/shared.css — the loader
+   injects shared.css first, then this file.
+
+   Everything scoped under `.luke-upsell` so nothing leaks into
+   Kajabi's own styles. Rules under the "KAJABI NATIVE BLOCK
+   OVERRIDES" heading at the bottom are the only exceptions — they
+   fight Kajabi's inline `<style>` tags with `!important`.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-
 .luke-upsell {
-  --lu-surface: #0d0f1b;
-  --lu-border: rgba(255, 255, 255, 0.08);
-  --lu-border-strong: rgba(255, 255, 255, 0.14);
-  --lu-text: #f5f5f7;
-  --lu-text-dim: #a1a1aa;
-  --lu-text-faint: #71717a;
-  --lu-blue: #3b9eff;
-  --lu-blue-hover: #1a86f5;
-  --lu-green: #22c55e;
-  --lu-green-dim: rgba(34, 197, 94, 0.15);
-  --lu-amber: #f59e0b;
-  --lu-font: 'Source Sans 3', 'Source Sans Pro', -apple-system, sans-serif;
-
   max-width: 720px;
   margin: 0 auto;
   padding: 8px 24px 0;
-  font-family: var(--lu-font);
-  color: var(--lu-text);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  font-variant-numeric: tabular-nums;
 }
-.luke-upsell *,
-.luke-upsell *::before,
-.luke-upsell *::after { box-sizing: border-box; }
 
 /* ---------- RECEIPT ---------- */
 .luke-upsell .lu-receipt {
-  background: var(--lu-surface);
-  border: 1px solid var(--lu-border-strong);
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-border-strong);
   border-radius: 14px;
   padding: 24px 28px;
   margin-bottom: 32px;
-  font-family: var(--lu-font);
+  font-family: var(--lb-font);
   font-size: 16px;
   position: relative;
   overflow: hidden;
@@ -54,7 +35,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--lu-blue), transparent);
+  background: linear-gradient(90deg, transparent, var(--lb-blue), transparent);
 }
 
 /* Expandable row */
@@ -100,7 +81,7 @@
   font-family: 'Fraunces', Georgia, serif;
   font-size: 16px;
   font-weight: 500;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   background: rgba(255, 255, 255, 0.06);
   padding: 0;
 }
@@ -117,19 +98,19 @@
   font-size: 12px;
   font-weight: 700;
 }
-.luke-upsell .lu-icon.lu-done { background: var(--lu-green-dim); color: var(--lu-green); }
-.luke-upsell .lu-icon.lu-add { background: rgba(59, 158, 255, 0.12); color: var(--lu-blue); }
-.luke-upsell .lu-label { color: var(--lu-text); font-weight: 500; }
+.luke-upsell .lu-icon.lu-done { background: var(--lb-green-dim); color: var(--lb-green); }
+.luke-upsell .lu-icon.lu-add { background: rgba(59, 158, 255, 0.12); color: var(--lb-blue); }
+.luke-upsell .lu-label { color: var(--lb-text); font-weight: 500; }
 .luke-upsell .lu-label small {
   display: block;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.08em;
   margin-top: 2px;
   text-transform: uppercase;
 }
-.luke-upsell .lu-amount { color: var(--lu-text); font-weight: 500; }
+.luke-upsell .lu-amount { color: var(--lb-text); font-weight: 500; }
 .luke-upsell .lu-item.lu-paid .lu-amount {
   display: flex;
   align-items: center;
@@ -138,22 +119,22 @@
 .luke-upsell .lu-paid-tag {
   font-size: 10px;
   font-weight: 700;
-  background: var(--lu-green-dim);
-  color: var(--lu-green);
+  background: var(--lb-green-dim);
+  color: var(--lb-green);
   padding: 3px 7px;
   border-radius: 4px;
   letter-spacing: 0.08em;
 }
-.luke-upsell .lu-strike { text-decoration: line-through; color: var(--lu-text-faint); font-weight: 400; }
+.luke-upsell .lu-strike { text-decoration: line-through; color: var(--lb-text-faint); font-weight: 400; }
 .luke-upsell .lu-chev {
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   font-size: 11px;
   transition: transform 0.2s;
   text-align: center;
 }
 .luke-upsell .lu-item[open] > summary .lu-chev {
   transform: rotate(180deg);
-  color: var(--lu-blue);
+  color: var(--lb-blue);
 }
 
 /* Expanded detail */
@@ -167,7 +148,7 @@
 }
 .luke-upsell .lu-detail p {
   font-size: 16px;
-  color: var(--lu-text-dim);
+  color: var(--lb-text-dim);
   line-height: 1.6;
   margin: 0 0 12px;
 }
@@ -179,7 +160,7 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   margin: 0 0 14px;
 }
 .luke-upsell .lu-stat {
@@ -193,7 +174,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   margin-bottom: 8px;
 }
 .luke-upsell .lu-chips {
@@ -206,14 +187,14 @@
   font-weight: 500;
   padding: 5px 10px;
   background: rgba(59, 158, 255, 0.08);
-  color: var(--lu-blue);
+  color: var(--lb-blue);
   border: 1px solid rgba(59, 158, 255, 0.2);
   border-radius: 4px;
   letter-spacing: 0.02em;
 }
 .luke-upsell .lu-chip.lu-chip-owned {
   background: rgba(34, 197, 94, 0.08);
-  color: var(--lu-green);
+  color: var(--lb-green);
   border-color: rgba(34, 197, 94, 0.2);
 }
 .luke-upsell .lu-see-more {
@@ -221,19 +202,19 @@
   margin-top: 14px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--lu-blue);
+  color: var(--lb-blue);
   text-decoration: none;
   letter-spacing: 0.02em;
   transition: color 0.15s;
 }
 .luke-upsell .lu-see-more:hover {
-  color: var(--lu-blue-hover);
+  color: var(--lb-blue-hover);
   text-decoration: underline;
 }
 
 .luke-upsell .lu-divider {
   height: 1px;
-  background: repeating-linear-gradient(90deg, var(--lu-border-strong) 0 4px, transparent 4px 8px);
+  background: repeating-linear-gradient(90deg, var(--lb-border-strong) 0 4px, transparent 4px 8px);
   margin: 12px 0;
 }
 
@@ -244,7 +225,7 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   text-transform: uppercase;
   padding: 14px 6px 8px;
 }
@@ -266,12 +247,12 @@
   align-items: center;
   padding: 5px 0;
   font-size: 16px;
-  color: var(--lu-text-dim);
+  color: var(--lb-text-dim);
 }
 .luke-upsell .lu-totals-row > :nth-child(2) { text-align: left; }
 .luke-upsell .lu-totals-row > :nth-child(3) { text-align: right; }
 .luke-upsell .lu-totals-row.lu-discount {
-  color: var(--lu-green);
+  color: var(--lb-green);
   font-weight: 600;
 }
 
@@ -284,17 +265,17 @@
   gap: 14px;
   padding: 14px 0 6px;
   margin-top: 6px;
-  border-top: 1px dashed var(--lu-border-strong);
+  border-top: 1px dashed var(--lb-border-strong);
   font-weight: 700;
   align-items: center;
 }
-.luke-upsell .lu-subtotal .lu-label { color: var(--lu-text); font-size: 16px; }
-.luke-upsell .lu-subtotal .lu-amount { color: var(--lu-blue); font-size: 22px; }
+.luke-upsell .lu-subtotal .lu-label { color: var(--lb-text); font-size: 16px; }
+.luke-upsell .lu-subtotal .lu-amount { color: var(--lb-blue); font-size: 22px; }
 .luke-upsell .lu-hint {
   text-align: center;
   font-size: 11px;
   font-weight: 600;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding-top: 10px;
@@ -306,7 +287,7 @@
 .luke-upsell .lu-hint-top {
   padding: 2px 0 12px;
   margin-bottom: 2px;
-  border-bottom: 1px dashed var(--lu-border-strong);
+  border-bottom: 1px dashed var(--lb-border-strong);
 }
 
 /* ---------- PERKS ---------- */
@@ -317,8 +298,8 @@
   margin-bottom: 10px;
 }
 .luke-upsell .lu-perk {
-  background: var(--lu-surface);
-  border: 1px solid var(--lu-border);
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-border);
   border-radius: 10px;
   padding: 18px 10px;
   text-align: center;
@@ -331,13 +312,13 @@
 .luke-upsell .lu-perk-label {
   font-size: 14px;
   font-weight: 600;
-  color: var(--lu-text);
+  color: var(--lb-text);
   line-height: 1.25;
 }
 .luke-upsell .lu-perk-note {
   font-size: 14px;
   font-weight: 600;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   letter-spacing: 0.04em;
 }
 
@@ -350,7 +331,7 @@
 .luke-upsell .lu-trust-card {
   border-radius: 12px;
   padding: 16px 18px;
-  border: 1px solid var(--lu-border-strong);
+  border: 1px solid var(--lb-border-strong);
   display: flex;
   gap: 12px;
   align-items: flex-start;
@@ -370,11 +351,11 @@
   margin: 0 0 4px;
   letter-spacing: -0.005em;
 }
-.luke-upsell .lu-trust-card.lu-scarcity h4 { color: var(--lu-amber); }
-.luke-upsell .lu-trust-card.lu-guarantee h4 { color: var(--lu-green); }
+.luke-upsell .lu-trust-card.lu-scarcity h4 { color: var(--lb-amber); }
+.luke-upsell .lu-trust-card.lu-guarantee h4 { color: var(--lb-green); }
 .luke-upsell .lu-trust-card p {
   font-size: 15px;
-  color: var(--lu-text-dim);
+  color: var(--lb-text-dim);
   line-height: 1.5;
   margin: 0;
 }
@@ -383,12 +364,12 @@
 .luke-upsell .lu-context {
   font-size: 15px;
   font-weight: 600;
-  color: var(--lu-text-faint);
+  color: var(--lb-text-faint);
   text-align: center;
   padding: 24px 0 0;
   letter-spacing: 0.01em;
 }
-.luke-upsell .lu-context .lu-paid-inline { color: var(--lu-green); font-weight: 700; }
+.luke-upsell .lu-context .lu-paid-inline { color: var(--lb-green); font-weight: 700; }
 
 /* ---------- HERO ---------- */
 .luke-upsell .lu-hero {
@@ -398,12 +379,12 @@
 }
 .luke-upsell .lu-hero-eyebrow {
   display: inline-block;
-  font-family: var(--lu-font);
+  font-family: var(--lb-font);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--lu-blue);
+  color: var(--lb-blue);
   background: rgba(59, 158, 255, 0.08);
   border: 1px solid rgba(59, 158, 255, 0.22);
   padding: 7px 14px;
@@ -412,26 +393,26 @@
   margin-bottom: 18px;
 }
 .luke-upsell .lu-hero-title {
-  font-family: var(--lu-font);
+  font-family: var(--lb-font);
   font-size: 44px;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  color: var(--lu-text);
+  color: var(--lb-text);
   margin: 0 0 14px;
 }
 .luke-upsell .lu-hero-subhead {
-  font-family: var(--lu-font);
+  font-family: var(--lb-font);
   font-size: 19px;
   font-weight: 400;
   font-style: italic;
   line-height: 1.45;
-  color: var(--lu-text-dim);
+  color: var(--lb-text-dim);
   max-width: 620px;
   margin: 0 auto 24px;
 }
 .luke-upsell .lu-hero-subhead strong {
-  color: var(--lu-blue);
+  color: var(--lb-blue);
   font-style: normal;
   font-weight: 700;
 }
@@ -440,7 +421,7 @@
   max-width: 100%;
   height: auto;
   border-radius: 14px;
-  border: 1px solid var(--lu-border-strong);
+  border: 1px solid var(--lb-border-strong);
   margin: 0 auto;
 }
 

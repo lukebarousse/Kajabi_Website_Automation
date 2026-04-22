@@ -1,0 +1,21 @@
+# Cloudflare Pages rewrite rules (backward compatibility).
+#
+# The repo was restructured: loader.js and upsell.css moved up out of
+# /upsells/{js,css}/ into /js/ and /css/ at the repo root. Live Kajabi
+# upsell pages still embed the OLD script URL (/upsells/js/loader.js),
+# and browsers that cached the OLD loader.js will try to fetch the OLD
+# CSS URL (/upsells/css/upsell.css). These 200 rewrites keep both
+# paths resolving to the new files without a client redirect, so the
+# old Kajabi embeds continue working indefinitely — no Kajabi-side
+# change is required to deploy this refactor safely.
+#
+# Format: <source>  <destination>  <status>
+# status 200 = rewrite (serve target content under source URL)
+# status 301 = permanent redirect (not used here — would force URL change)
+#
+# Remove these lines only after every Kajabi upsell embed has been
+# migrated to the new /js/loader.js URL AND enough time has passed
+# for browser caches to expire the old loader.js (days, realistically).
+
+/upsells/js/loader.js     /js/loader.js     200
+/upsells/css/upsell.css   /css/upsell.css   200

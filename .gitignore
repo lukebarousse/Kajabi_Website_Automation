@@ -5,17 +5,31 @@
 # Allow this gitignore itself
 !.gitignore
 
-# Allow the project folder so we can descend into it
+# Cloudflare Pages rewrite/redirect rules (served from build root)
+!_redirects
+
+# Allowlist the top-level folders we intend to descend into.
+# Each folder then has * to redeny contents, followed by !<path>/** to
+# explicitly allow the assets we ship to Cloudflare Pages.
+!css/
+css/*
+!css/**
+
+!js/
+js/*
+!js/**
+
+# Upsell page HTML is public (served to Kajabi visitors)
 !upsells/
 upsells/*
-
-# Allow only the CDN-served assets that Kajabi pages actually fetch
-!upsells/css/
-!upsells/css/**
-!upsells/js/
-!upsells/js/**
 !upsells/pages/
 !upsells/pages/**
+
+# Checkout page HTML is public (same model — served to Kajabi visitors)
+!checkouts/
+checkouts/*
+!checkouts/pages/
+!checkouts/pages/**
 
 # Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
 .DS_Store

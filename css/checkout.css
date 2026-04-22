@@ -1,0 +1,322 @@
+/* ============================================================
+   LUKE'S KAJABI CHECKOUT STYLES
+
+   Page-specific styles for the 7 checkout pages (one per course).
+   Consumes design tokens (colors, type, borders) from shared.css
+   — the loader injects shared.css first, then this file.
+
+   Everything scoped under `.luke-checkout` so nothing leaks into
+   Kajabi's own page chrome or the native checkout form.
+
+   Block order (matches generate.py output):
+     1. Header      (.lc-header)
+     2. Image       (.lc-course-image)
+     3. Trust strip (.lc-trust-strip)
+     4. Perks       (.lc-perks-list)
+     5. Testimonial (.lc-testimonial)
+     6. Risk-free   (.lc-risk-free)
+     7. What's next (.lc-whats-next)
+     8. Disclaimer  (.lc-disclaimer)  — optional (chatgpt only)
+   ============================================================ */
+
+.luke-checkout {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* ---------- BLOCK 1: HEADER ---------- */
+.luke-checkout .lc-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+.luke-checkout .lc-header h1 {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+}
+.luke-checkout .lc-header h2 {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--lb-text);
+  margin: 0 0 16px;
+}
+.luke-checkout .lc-accent {
+  color: var(--lb-blue);
+}
+.luke-checkout .lc-tagline {
+  font-style: italic;
+  font-size: 17px;
+  color: var(--lb-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---------- BLOCK 2: COURSE IMAGE ---------- */
+.luke-checkout .lc-course-image {
+  margin-bottom: 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--lb-border);
+  background: var(--lb-surface);
+}
+.luke-checkout .lc-course-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+/* ---------- BLOCK 3: TRUST STRIP ---------- */
+.luke-checkout .lc-trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.luke-checkout .lc-trust-stat {
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-border);
+  border-radius: 12px;
+  padding: 18px 14px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.luke-checkout .lc-trust-stat:hover {
+  border-color: var(--lb-border-strong);
+  transform: translateY(-1px);
+}
+.luke-checkout .lc-trust-logo {
+  display: block;
+  height: 26px;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto 10px;
+  object-fit: contain;
+}
+.luke-checkout .lc-trust-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--lb-blue);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+.luke-checkout .lc-trust-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--lb-text-dim);
+  line-height: 1.3;
+}
+
+/* ---------- BLOCK 4: PERKS LIST ---------- */
+.luke-checkout .lc-perks-list {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.luke-checkout .lc-perk-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: center;
+}
+.luke-checkout .lc-perk-icon {
+  font-size: 32px;
+  line-height: 1;
+  text-align: center;
+}
+.luke-checkout .lc-perk-content h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--lb-text);
+  margin: 0 0 4px;
+  letter-spacing: -0.005em;
+}
+.luke-checkout .lc-perk-content p {
+  font-size: 15px;
+  color: var(--lb-text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---------- BLOCK 5: TESTIMONIAL ---------- */
+.luke-checkout .lc-testimonial {
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 16px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.luke-checkout .lc-testimonial::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  right: 18px;
+  font-size: 120px;
+  font-family: Georgia, serif;
+  color: var(--lb-blue);
+  opacity: 0.1;
+  line-height: 1;
+  font-weight: 700;
+}
+.luke-checkout .lc-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.luke-checkout .lc-testimonial-content {
+  position: relative;
+  z-index: 1;
+}
+.luke-checkout .lc-testimonial-quote {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--lb-text);
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+.luke-checkout .lc-testimonial-attribution {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lb-text-dim);
+  margin: 0;
+}
+.luke-checkout .lc-testimonial-attribution .lc-role {
+  color: var(--lb-text-faint);
+  font-weight: 400;
+}
+
+/* ---------- BLOCK 6: RISK-FREE CARD ---------- */
+.luke-checkout .lc-risk-free {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02));
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.luke-checkout .lc-risk-free-icon {
+  font-size: 56px;
+  /* line-height 1.2 roughly matches emoji's intrinsic glyph placement,
+     so grid's align-items: center lands the glyph's optical midpoint
+     (not its baseline) on the content block's midpoint. */
+  line-height: 1.2;
+  text-align: center;
+  align-self: center;
+}
+.luke-checkout .lc-risk-free-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--lb-green);
+  margin: 0 0 6px;
+  letter-spacing: -0.005em;
+}
+.luke-checkout .lc-risk-free-content p {
+  font-size: 14px;
+  color: var(--lb-text-dim);
+  line-height: 1.55;
+  margin: 0;
+}
+.luke-checkout .lc-risk-free-content p strong {
+  color: var(--lb-text);
+  font-weight: 600;
+}
+
+/* ---------- BLOCK 7: WHAT HAPPENS NEXT ---------- */
+.luke-checkout .lc-whats-next {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+  margin-bottom: 28px;
+}
+.luke-checkout .lc-whats-next-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--lb-text-dim);
+}
+.luke-checkout .lc-wn-icon {
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+}
+.luke-checkout .lc-whats-next-item strong {
+  color: var(--lb-text);
+  font-weight: 600;
+}
+
+/* ---------- BLOCK 8 (optional): DISCLAIMER ---------- */
+.luke-checkout .lc-disclaimer {
+  font-size: 12px;
+  color: var(--lb-text-faint);
+  font-style: italic;
+  line-height: 1.5;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--lb-border);
+  border-radius: 10px;
+  margin: 0;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 560px) {
+  .luke-checkout {
+    padding: 0 4px 40px;
+  }
+  .luke-checkout .lc-header h1 { font-size: 34px; }
+
+  /* Keep the 3-column trust strip horizontal even on mobile;
+     just tighten the spacing and reduce number weight. */
+  .luke-checkout .lc-trust-strip { gap: 6px; }
+  .luke-checkout .lc-trust-stat { padding: 14px 8px; }
+  .luke-checkout .lc-trust-logo { height: 22px; margin-bottom: 8px; }
+  .luke-checkout .lc-trust-number { font-size: 17px; }
+  .luke-checkout .lc-trust-label { font-size: 12px; }
+
+  .luke-checkout .lc-testimonial { padding: 18px; }
+  .luke-checkout .lc-perk-content h3 { font-size: 16px; }
+}
+
+/* ---------- STAGGERED FADE-IN (polish) ---------- */
+@keyframes lc-fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.luke-checkout > section,
+.luke-checkout > p.lc-disclaimer {
+  animation: lc-fadeUp 0.6s ease-out backwards;
+}
+.luke-checkout > *:nth-child(1) { animation-delay: 0.00s; }
+.luke-checkout > *:nth-child(2) { animation-delay: 0.08s; }
+.luke-checkout > *:nth-child(3) { animation-delay: 0.16s; }
+.luke-checkout > *:nth-child(4) { animation-delay: 0.24s; }
+.luke-checkout > *:nth-child(5) { animation-delay: 0.32s; }
+.luke-checkout > *:nth-child(6) { animation-delay: 0.40s; }
+.luke-checkout > *:nth-child(7) { animation-delay: 0.48s; }
+.luke-checkout > *:nth-child(8) { animation-delay: 0.56s; }
