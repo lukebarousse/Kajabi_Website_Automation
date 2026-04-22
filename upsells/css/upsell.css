@@ -258,12 +258,16 @@
   background: repeating-linear-gradient(90deg, var(--lu-border-strong) 0 4px, transparent 4px 8px);
   margin: 12px 0;
 }
+/* Subtotal + totals rows share the same 4-column grid as the receipt
+   rows so labels line up under course names and amounts line up under
+   course prices (the trailing 16px slot matches the row chevron). */
 .luke-upsell .lu-subtotal {
   display: grid;
-  grid-template-columns: 24px 1fr auto;
-  gap: 12px;
+  grid-template-columns: 36px 1fr auto 16px;
+  gap: 14px;
   padding: 10px 0;
   font-weight: 700;
+  align-items: center;
 }
 .luke-upsell .lu-subtotal .lu-label { color: var(--lu-text); font-size: 15px; }
 .luke-upsell .lu-subtotal .lu-amount { color: var(--lu-blue); font-size: 18px; }
@@ -273,12 +277,16 @@
   margin-top: 12px;
 }
 .luke-upsell .lu-totals-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 36px 1fr auto 16px;
+  gap: 14px;
+  align-items: center;
   padding: 5px 0;
   font-size: 16px;
   color: var(--lu-text-dim);
 }
+.luke-upsell .lu-totals-row > :nth-child(2) { text-align: left; }
+.luke-upsell .lu-totals-row > :nth-child(3) { text-align: right; }
 .luke-upsell .lu-totals-row.lu-save {
   color: var(--lu-green);
   font-weight: 700;
