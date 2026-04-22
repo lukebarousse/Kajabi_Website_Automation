@@ -8,18 +8,35 @@
      <script src=".../upsells/js/loader.js" defer></script>
 
    This script handles the rest:
-     1. Injects upsell.css into <head> with a Date.now() cache-buster.
-     2. Fetches the matching pages/SLUG.html (also cache-busted) and
-        injects it into the container.
+     1. Injects upsell.css into <head>.
+     2. Fetches the matching pages/SLUG.html and injects it into
+        the container.
 
-   Because the CSS link and HTML fetch both carry ?t=<now> on every
-   page load, any edit to upsell.css or pages/*.html in the repo
-   propagates to live Kajabi pages within minutes of a push+purge —
-   no Kajabi edits, no per-page version bumps.
+   Cache model (two layers — both matter):
+
+     CDN edge cache  (jsDelivr, ~12h TTL, query strings IGNORED on
+                     /gh/ paths) → cleared by scripts/purge.sh after
+                     every deploy. Throttled to ~1 purge per 30 min
+                     per path, so don't redeploy within that window.
+
+     Browser cache   (per visitor, 7-day max-age from CDN headers)
+                     → cleared by the ?t=Date.now() browser-cache
+                     buster appended to the CSS link and HTML fetch
+                     below. This does NOT bypass the edge; it only
+                     prevents the visitor's browser from serving its
+                     own 7-day-stale copy of whatever the edge last
+                     returned. Without it, a successful edge purge
+                     would take up to 7 days to reach each visitor.
+
+   Net propagation after ./scripts/deploy.sh:
+     push → edge purge (if not throttled) → next page load fetches
+     fresh from edge (browser cache miss guaranteed by ?t=now) →
+     typically <15 min end-to-end.
 
    Only change that requires visitor action: editing loader.js itself.
-   Then a one-time hard-refresh is needed to evict the browser's
-   7-day cached copy of this file. Rare (hopefully quarterly-at-most).
+   loader.js is fetched without a cache-buster (by design — we want
+   browsers to cache it), so edits are capped by the 7-day browser
+   cache. Keep this file stable; edit rarely.
    ============================================================ */
 
 (function () {
@@ -31,13 +48,13 @@
   var PAGES_URL = BASE + '/pages/';
   var CSS_URL = BASE + '/css/upsell.css';
 
-  var BUST = Date.now();
+  var BROWSER_BUST = Date.now();
 
   function injectCss() {
     if (document.querySelector('link[data-luke-upsell-css]')) return;
     var link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = CSS_URL + '?t=' + BUST;
+    link.href = CSS_URL + '?t=' + BROWSER_BUST;
     link.setAttribute('data-luke-upsell-css', 'true');
     (document.head || document.documentElement).appendChild(link);
   }
@@ -49,7 +66,7 @@
       return;
     }
 
-    var url = PAGES_URL + pageName + '.html?t=' + BUST;
+    var url = PAGES_URL + pageName + '.html?t=' + BROWSER_BUST;
 
     fetch(url)
       .then(function (response) {

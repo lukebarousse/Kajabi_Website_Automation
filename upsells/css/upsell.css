@@ -56,28 +56,6 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--lu-blue), transparent);
 }
-.luke-upsell .lu-receipt-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 14px;
-  border-bottom: 1px dashed var(--lu-border-strong);
-  margin-bottom: 14px;
-}
-.luke-upsell .lu-receipt-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: var(--lu-text-faint);
-  text-transform: uppercase;
-}
-.luke-upsell .lu-receipt-id {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--lu-text-faint);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
 
 /* Expandable row */
 .luke-upsell .lu-item { margin: 0; padding: 0; }
@@ -258,23 +236,28 @@
   background: repeating-linear-gradient(90deg, var(--lu-border-strong) 0 4px, transparent 4px 8px);
   margin: 12px 0;
 }
-/* Subtotal + totals rows share the same 4-column grid as the receipt
-   rows so labels line up under course names and amounts line up under
-   course prices (the trailing 16px slot matches the row chevron). */
-.luke-upsell .lu-subtotal {
-  display: grid;
-  grid-template-columns: 36px 1fr auto 16px;
-  gap: 14px;
-  padding: 10px 0;
-  font-weight: 700;
-  align-items: center;
+
+/* Small-caps section labels ("You already own" / "Adding to your bundle")
+   that divide the owned course from the added courses using typography
+   rather than rules or color blocks. */
+.luke-upsell .lu-section-header {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--lu-text-faint);
+  text-transform: uppercase;
+  padding: 14px 6px 8px;
 }
-.luke-upsell .lu-subtotal .lu-label { color: var(--lu-text); font-size: 15px; }
-.luke-upsell .lu-subtotal .lu-amount { color: var(--lu-blue); font-size: 18px; }
-.luke-upsell .lu-totals {
-  padding-top: 12px;
-  border-top: 1px dashed var(--lu-border-strong);
-  margin-top: 12px;
+/* First header ("You already own") sits right under the top hint's
+   dashed rule — tighter top padding so it doesn't feel floaty. */
+.luke-upsell .lu-hint-top + .lu-section-header {
+  padding-top: 6px;
+}
+/* Totals breakdown: Subtotal → Bundle discount → Upgrade price today.
+   Shows the math explicitly so savings are visible instead of a mental
+   calculation. Rows share the receipt's 4-col grid for vertical alignment. */
+.luke-upsell .lu-totals-breakdown {
+  padding: 2px 0;
 }
 .luke-upsell .lu-totals-row {
   display: grid;
@@ -287,10 +270,26 @@
 }
 .luke-upsell .lu-totals-row > :nth-child(2) { text-align: left; }
 .luke-upsell .lu-totals-row > :nth-child(3) { text-align: right; }
-.luke-upsell .lu-totals-row.lu-save {
+.luke-upsell .lu-totals-row.lu-discount {
   color: var(--lu-green);
-  font-weight: 700;
+  font-weight: 600;
 }
+
+/* .lu-subtotal is the "final answer" row (Upgrade price today). Bold blue,
+   slightly larger than breakdown rows, with a dashed rule above that
+   visually resolves the subtotal − discount math. */
+.luke-upsell .lu-subtotal {
+  display: grid;
+  grid-template-columns: 36px 1fr auto 16px;
+  gap: 14px;
+  padding: 14px 0 6px;
+  margin-top: 6px;
+  border-top: 1px dashed var(--lu-border-strong);
+  font-weight: 700;
+  align-items: center;
+}
+.luke-upsell .lu-subtotal .lu-label { color: var(--lu-text); font-size: 16px; }
+.luke-upsell .lu-subtotal .lu-amount { color: var(--lu-blue); font-size: 22px; }
 .luke-upsell .lu-hint {
   text-align: center;
   font-size: 11px;
@@ -300,6 +299,14 @@
   text-transform: uppercase;
   padding-top: 10px;
   padding-bottom: 4px;
+}
+/* Top-of-receipt variant: serves as both the card's title band and an
+   "interactive rows" discovery hint. Inherits the dashed seam that the
+   old "Your Upgrade · Bundle" header used to provide. */
+.luke-upsell .lu-hint-top {
+  padding: 2px 0 12px;
+  margin-bottom: 2px;
+  border-bottom: 1px dashed var(--lu-border-strong);
 }
 
 /* ---------- PERKS ---------- */
