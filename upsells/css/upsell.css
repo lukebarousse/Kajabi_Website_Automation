@@ -527,19 +527,23 @@ button[data-kjb-element]:hover,
   transform: translateY(-1px) !important;
 }
 
-/* Subtotal / Due Now typography polish */
+/* Hide the redundant Subtotal row + its trailing <hr>. The price is
+   already shown twice above (our receipt's "Upgrade price today" +
+   Kajabi's formatted-price tag we also hide), so repeating it in
+   Kajabi's native price-breakdown is noise. Dropping the <hr> too
+   prevents a dangling divider above "Due Now". */
+[data-kjb-element="subtotal-row"],
+[data-kjb-element="subtotal-row"] + hr {
+  display: none !important;
+}
+
+/* Typography polish for what remains of the price breakdown */
 [data-kjb-element="price-breakdown"] {
   font-family: 'Source Sans 3', 'Source Sans Pro', -apple-system, sans-serif !important;
   font-variant-numeric: tabular-nums !important;
   max-width: 720px !important;
   margin: 0 auto 20px !important;
   padding: 0 24px !important;
-}
-
-[data-kjb-element="subtotal-row"] p,
-[data-kjb-element="subtotal-row"] {
-  font-size: 13px !important;
-  color: #a1a1aa !important;
 }
 
 [data-kjb-element="due-now-row"] h4 {
