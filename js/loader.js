@@ -36,6 +36,7 @@
   var SHARED_CSS_URL = BASE + '/css/shared.css';
   var UPSELL_CSS_URL = BASE + '/css/upsell.css';
   var CHECKOUT_CSS_URL = BASE + '/css/checkout.css';
+  var CHECKOUT_CAROUSEL_JS_URL = BASE + '/js/checkout-carousel.js';
   var UPSELL_PAGES_URL = BASE + '/upsells/pages/';
   var CHECKOUT_PAGES_URL = BASE + '/checkouts/pages/';
 
@@ -46,6 +47,24 @@
     link.href = href;
     link.setAttribute('data-lb-css', marker);
     (document.head || document.documentElement).appendChild(link);
+  }
+
+  function injectScript(src, marker) {
+    if (document.querySelector('script[data-lb-js="' + marker + '"]')) return;
+    var s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.setAttribute('data-lb-js', marker);
+    (document.head || document.documentElement).appendChild(s);
+  }
+
+  function runCheckoutEnhancers(container) {
+    // The carousel script auto-initializes on DOMContentLoaded, but we
+    // also fire it explicitly because HTML may land AFTER that event.
+    // It's idempotent — carousels already initialized are skipped.
+    if (typeof window.__lukeInitCheckoutCarousels__ === 'function') {
+      window.__lukeInitCheckoutCarousels__(container);
+    }
   }
 
   function loadContainer(container, kind, pagesBase) {
@@ -65,6 +84,7 @@
       .then(function (html) {
         container.innerHTML = html;
         container.setAttribute('data-' + kind + '-loaded', 'true');
+        if (kind === 'checkout') runCheckoutEnhancers(container);
       })
       .catch(function (err) {
         console.error('[luke-' + kind + '] failed to load "' + slug + '":', err);
@@ -92,6 +112,7 @@
     if (checkouts.length > 0) {
       injectStylesheet(SHARED_CSS_URL, 'shared');
       injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
+      injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
       Array.prototype.forEach.call(checkouts, function (c) {
         loadContainer(c, 'checkout', CHECKOUT_PAGES_URL);
       });

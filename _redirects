@@ -1,21 +1,34 @@
 # Cloudflare Pages rewrite rules (backward compatibility).
 #
+# ============================================================================
+# TODO — DELETE THIS FILE
+# ============================================================================
+# All 6 Kajabi upsell embeds were migrated to the new /js/loader.js URL
+# on 2026-04-21. Keep this shim live for ~1 week to absorb any still-cached
+# browsers or tabs still running the old loader.js (which then fetches
+# /upsells/css/upsell.css).
+#
+# Safe-to-delete checklist (run on or after ~2026-04-28):
+#   1. Cloudflare Pages dashboard → Analytics → filter requests by path.
+#      Confirm /upsells/js/loader.js and /upsells/css/upsell.css have
+#      ~zero hits over the last 24h.
+#   2. Spot-check each of the 6 upsell pages in Kajabi: view source and
+#      verify the <script> src is https://.../js/loader.js (no /upsells/).
+#   3. Delete this file:
+#        rm _redirects
+#        git commit -am "remove legacy /upsells/* redirect shim"
+#        git push
+# ============================================================================
+#
 # The repo was restructured: loader.js and upsell.css moved up out of
-# /upsells/{js,css}/ into /js/ and /css/ at the repo root. Live Kajabi
-# upsell pages still embed the OLD script URL (/upsells/js/loader.js),
-# and browsers that cached the OLD loader.js will try to fetch the OLD
-# CSS URL (/upsells/css/upsell.css). These 200 rewrites keep both
-# paths resolving to the new files without a client redirect, so the
-# old Kajabi embeds continue working indefinitely — no Kajabi-side
-# change is required to deploy this refactor safely.
+# /upsells/{js,css}/ into /js/ and /css/ at the repo root. Browsers that
+# cached the OLD loader.js will try to fetch the OLD CSS URL. These 200
+# rewrites keep both paths resolving to the new files without a client
+# redirect.
 #
 # Format: <source>  <destination>  <status>
 # status 200 = rewrite (serve target content under source URL)
 # status 301 = permanent redirect (not used here — would force URL change)
-#
-# Remove these lines only after every Kajabi upsell embed has been
-# migrated to the new /js/loader.js URL AND enough time has passed
-# for browser caches to expire the old loader.js (days, realistically).
 
 /upsells/js/loader.js     /js/loader.js     200
 /upsells/css/upsell.css   /css/upsell.css   200
