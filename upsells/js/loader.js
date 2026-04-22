@@ -14,7 +14,7 @@
 (function () {
   'use strict';
 
-  var BASE_URL = 'https://cdn.jsdelivr.net/gh/lukebarousse/Kajabi_Website_Automation@main/pages/';
+  var BASE_URL = 'https://cdn.jsdelivr.net/gh/lukebarousse/Kajabi_Website_Automation@main/upsells/pages/';
 
   function loadUpsell(container) {
     var pageName = container.getAttribute('data-upsell');
