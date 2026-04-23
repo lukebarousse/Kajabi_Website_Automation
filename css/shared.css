@@ -14,7 +14,8 @@
 .luke-upsell,
 .luke-checkout,
 .luke-bundle,
-.luke-shopify {
+.luke-shopify,
+.luke-landing-pricing {
   /* Surfaces */
   --lb-bg: #0a0a0c;
   --lb-surface: #0d0f1b;
@@ -58,6 +59,9 @@
 .luke-bundle *::after,
 .luke-shopify *,
 .luke-shopify *::before,
-.luke-shopify *::after {
+.luke-shopify *::after,
+.luke-landing-pricing *,
+.luke-landing-pricing *::before,
+.luke-landing-pricing *::after {
   box-sizing: border-box;
 }

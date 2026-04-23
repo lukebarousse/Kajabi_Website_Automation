@@ -38,6 +38,11 @@ shopify/*
 !shopify/pages/
 !shopify/pages/**
 
+!landing/
+landing/*
+!landing/pricing/
+!landing/pricing/**
+
 # Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
 .DS_Store
 ._*

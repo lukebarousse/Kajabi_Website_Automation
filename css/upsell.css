@@ -424,6 +424,10 @@
   border: 1px solid var(--lb-border-strong);
   margin: 0 auto;
 }
+/* Bundle hero PNGs are transparent — border reads as a floating box on page bg */
+.luke-upsell .lu-hero-image.lu-hero-image--bundle {
+  border: 0;
+}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 560px) {
@@ -431,6 +435,7 @@
   .luke-upsell .lu-hero-title { font-size: 30px; }
   .luke-upsell .lu-hero-subhead { font-size: 16px; }
   .luke-upsell .lu-hero-image { border-radius: 10px; }
+  .luke-upsell .lu-hero-image.lu-hero-image--bundle { border-radius: 10px; }
   .luke-upsell .lu-receipt { padding: 18px 20px; font-size: 14px; }
   .luke-upsell .lu-perks { gap: 4px; }
   .luke-upsell .lu-perk { padding: 12px 6px; }

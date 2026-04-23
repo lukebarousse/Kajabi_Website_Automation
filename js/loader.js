@@ -1,32 +1,37 @@
 /* ============================================================
    LUKE'S KAJABI CONTENT LOADER
 
-   Single script, four modes. Each host page only needs:
+   Single script, five modes. Each host page only needs:
 
-     <div class="luke-upsell"       data-upsell="SLUG"></div>
+     <div class="luke-upsell"          data-upsell="SLUG"></div>
      — OR —
-     <div class="luke-checkout"     data-checkout="COURSE-KEY"></div>
+     <div class="luke-checkout"        data-checkout="COURSE-KEY"></div>
      — OR —
-     <div class="luke-bundle"       data-bundle="BUNDLE-KEY"></div>
+     <div class="luke-bundle"          data-bundle="BUNDLE-KEY"></div>
      — OR —
-     <div class="luke-shopify"      data-shopify-page="SLUG"></div>
+     <div class="luke-shopify"         data-shopify-page="SLUG"></div>
+     — OR —
+     <div class="luke-landing-pricing" data-landing-pricing="COURSE-KEY"></div>
 
      <script src=".../js/loader.js" defer></script>
 
    The script finds every container on the page and dispatches
    based on which attribute is present:
 
-     data-upsell        → inject shared.css + upsell.css,
-                          fetch /upsells/pages/SLUG
+     data-upsell           → inject shared.css + upsell.css,
+                             fetch /upsells/pages/SLUG
 
-     data-checkout      → inject shared.css + checkout.css,
-                          fetch /checkouts/pages/COURSE-KEY
+     data-checkout         → inject shared.css + checkout.css,
+                             fetch /checkouts/pages/COURSE-KEY
 
-     data-bundle        → inject shared.css + checkout.css + upsell.css + bundle.css,
-                          fetch /checkouts/bundles/BUNDLE-KEY
+     data-bundle           → inject shared.css + checkout.css + upsell.css + bundle.css,
+                             fetch /checkouts/bundles/BUNDLE-KEY
 
-     data-shopify-page  → inject shared.css + checkout.css + upsell.css + shopify.css,
-                          fetch /shopify/pages/SLUG
+     data-shopify-page     → inject shared.css + checkout.css + upsell.css + shopify.css,
+                             fetch /shopify/pages/SLUG
+
+     data-landing-pricing  → inject shared.css + landing.css,
+                             fetch /landing/pricing/COURSE-KEY
 
    Hosting: Cloudflare Pages (atomic deploys). Each deploy is
    served with `Cache-Control: public, max-age=0, must-revalidate`,
@@ -53,6 +58,8 @@
   var BUNDLE_PAGES_URL = BASE + '/checkouts/bundles/';
   var SHOPIFY_PAGES_URL = BASE + '/shopify/pages/';
   var SHOPIFY_CSS_URL = BASE + '/css/shopify.css';
+  var LANDING_CSS_URL = BASE + '/css/landing.css';
+  var LANDING_PRICING_PAGES_URL = BASE + '/landing/pricing/';
 
   function injectStylesheet(href, marker) {
     if (document.querySelector('link[data-lb-css="' + marker + '"]')) return;
@@ -117,15 +124,19 @@
     var checkouts = document.querySelectorAll('.luke-checkout[data-checkout]');
     var bundles = document.querySelectorAll('.luke-bundle[data-bundle]');
     var shopify = document.querySelectorAll('.luke-shopify[data-shopify-page]');
+    var landingPricing = document.querySelectorAll(
+      '.luke-landing-pricing[data-landing-pricing]'
+    );
 
     if (
       upsells.length === 0 &&
       checkouts.length === 0 &&
       bundles.length === 0 &&
-      shopify.length === 0
+      shopify.length === 0 &&
+      landingPricing.length === 0
     ) {
       console.warn(
-        '[luke-loader] no .luke-upsell, .luke-checkout, .luke-bundle, or .luke-shopify containers found on page'
+        '[luke-loader] no .luke-upsell, .luke-checkout, .luke-bundle, .luke-shopify, or .luke-landing-pricing containers found on page'
       );
       return;
     }
@@ -165,6 +176,14 @@
       injectStylesheet(SHOPIFY_CSS_URL, 'shopify');
       Array.prototype.forEach.call(shopify, function (c) {
         loadContainer(c, 'data-shopify-page', SHOPIFY_PAGES_URL);
+      });
+    }
+
+    if (landingPricing.length > 0) {
+      injectStylesheet(SHARED_CSS_URL, 'shared');
+      injectStylesheet(LANDING_CSS_URL, 'landing');
+      Array.prototype.forEach.call(landingPricing, function (c) {
+        loadContainer(c, 'data-landing-pricing', LANDING_PRICING_PAGES_URL);
       });
     }
   }

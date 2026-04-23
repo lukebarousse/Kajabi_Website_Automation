@@ -1,0 +1,149 @@
+/* ============================================================
+   LANDING PAGE PRICING SNIPPET
+
+   Loader order: shared.css → landing.css
+   Host: <div class="luke-landing-pricing" data-landing-pricing="sql"></div>
+   ============================================================ */
+
+.luke-landing-pricing {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.luke-landing-pricing .llp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (max-width: 639px) {
+  .luke-landing-pricing .llp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.luke-landing-pricing .llp-card {
+  /* Lighter than --lb-surface so cards read as distinct planes vs page */
+  background: var(--lb-surface-2);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 16px 24px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.luke-landing-pricing .llp-card--supporter {
+  background: linear-gradient(
+      rgba(59, 158, 255, 0.03),
+      rgba(59, 158, 255, 0.03)
+    ),
+    var(--lb-surface-2);
+}
+
+.luke-landing-pricing .llp-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lb-text-faint);
+  margin: 0 0 8px;
+}
+
+.luke-landing-pricing .llp-card--supporter .llp-card-label {
+  color: var(--lb-blue);
+}
+
+.luke-landing-pricing .llp-price {
+  font-family: var(--lb-font);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 6px;
+}
+
+.luke-landing-pricing .llp-price--free {
+  font-size: 40px;
+  color: var(--lb-text);
+}
+
+.luke-landing-pricing .llp-price--paid {
+  font-size: 40px;
+  color: var(--lb-text);
+}
+
+.luke-landing-pricing .llp-features-intro {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--lb-text-dim);
+  line-height: 1.45;
+}
+
+.luke-landing-pricing .llp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.luke-landing-pricing .llp-li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--lb-text);
+}
+
+.luke-landing-pricing .llp-li-icon {
+  flex-shrink: 0;
+  width: 1.5em;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1.35;
+}
+
+.luke-landing-pricing .llp-li-text {
+  flex: 1 1 auto;
+}
+
+.luke-landing-pricing .llp-card--supporter .llp-cta {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  font-family: var(--lb-font);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--lb-blue);
+  border-radius: 8px;
+  padding: 14px 20px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.luke-landing-pricing .llp-card--supporter .llp-cta:hover {
+  background: var(--lb-blue-hover);
+  color: #fff;
+}
+
+.luke-landing-pricing .llp-card--supporter .llp-cta:focus-visible {
+  outline: 2px solid var(--lb-blue);
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .luke-landing-pricing .llp-price--free,
+  .luke-landing-pricing .llp-price--paid {
+    font-size: 34px;
+  }
+  .luke-landing-pricing .llp-card {
+    padding: 14px 18px 16px;
+  }
+}
