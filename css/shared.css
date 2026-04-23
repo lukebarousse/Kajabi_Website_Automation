@@ -15,7 +15,9 @@
 .luke-checkout,
 .luke-bundle,
 .luke-shopify,
-.luke-landing-pricing {
+.luke-landing-pricing,
+.luke-courses-bundles,
+.luke-courses-individual {
   /* Surfaces */
   --lb-bg: #0a0a0c;
   --lb-surface: #0d0f1b;
@@ -62,6 +64,12 @@
 .luke-shopify *::after,
 .luke-landing-pricing *,
 .luke-landing-pricing *::before,
-.luke-landing-pricing *::after {
+.luke-landing-pricing *::after,
+.luke-courses-bundles *,
+.luke-courses-bundles *::before,
+.luke-courses-bundles *::after,
+.luke-courses-individual *,
+.luke-courses-individual *::before,
+.luke-courses-individual *::after {
   box-sizing: border-box;
 }

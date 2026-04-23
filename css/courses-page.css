@@ -1,0 +1,653 @@
+/* ============================================================
+   /courses PAGE — bundle tiers + individual course grid
+
+   Loader: shared.css → courses-page.css
+   Host: .luke-courses-bundles | .luke-courses-individual
+   Markup uses lcp-* classes to avoid Kajabi theme collisions.
+   ============================================================ */
+
+.luke-courses-bundles {
+  isolation: isolate;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #f0f0f0;
+}
+
+.luke-courses-individual {
+  isolation: isolate;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #f0f0f0;
+}
+
+/* --- Bundles: tier cards --- */
+.luke-courses-bundles .lcp-bundle-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+  font-family: "Source Sans Pro", "Source Sans 3", sans-serif;
+}
+
+.luke-courses-bundles .lcp-bundle-tier {
+  background-color: #1c2026;
+  border: 1px solid #333a45;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  color: #f0f0f0;
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.luke-courses-bundles .lcp-bundle-tier--popular {
+  border: 2px solid #03b4e9;
+}
+
+.luke-courses-bundles .lcp-popular-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #03b4e9;
+  color: white;
+  padding: 5px 15px;
+  font-size: 0.9em;
+  font-weight: bold;
+  border-radius: 0 0 5px 5px;
+  width: fit-content;
+  z-index: 2;
+}
+
+.luke-courses-bundles .lcp-tier-header {
+  border-bottom: 1px solid #333a45;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.luke-courses-bundles .lcp-tier-title {
+  margin-top: 25px;
+  margin-bottom: 8px;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.luke-courses-bundles .lcp-bundle-tier--popular .lcp-tier-title {
+  margin-top: 28px;
+}
+
+.luke-courses-bundles .lcp-tier-tagline {
+  margin: 0;
+  font-size: 0.95em;
+  color: #aaa;
+  line-height: 1.35;
+}
+
+.luke-courses-bundles ul.lcp-tier-features {
+  list-style: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  text-align: left;
+  flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles ul.lcp-tier-features > li.lcp-tier-row {
+  list-style: none;
+  list-style-type: none;
+  margin: 0 0 14px 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.luke-courses-bundles .lcp-tier-row {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  font-size: 1.15em;
+  position: relative;
+}
+
+.luke-courses-bundles .lcp-tier-row:last-child {
+  margin-bottom: 0;
+}
+
+.luke-courses-bundles .lcp-tier-hit {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: inherit;
+}
+
+.luke-courses-bundles.lcp-tooltips-enabled ul.lcp-tier-features > li.lcp-tier-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin: -4px -6px 10px -6px;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles.lcp-tooltips-enabled
+  ul.lcp-tier-features
+  > li.lcp-tier-row:last-child {
+  margin-bottom: 0;
+}
+
+.luke-courses-bundles.lcp-tooltips-enabled .lcp-tier-row.is-lcp-row-active {
+  background-color: rgba(3, 180, 233, 0.08);
+}
+
+.luke-courses-bundles.lcp-tooltips-enabled
+  .lcp-tier-row.is-lcp-row-active
+  .lcp-tier-short {
+  color: #e8eef5;
+}
+
+.luke-courses-bundles .lcp-tier-row img {
+  width: 26px;
+  height: 26px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.luke-courses-bundles .lcp-tip-html {
+  display: none;
+}
+
+.luke-courses-bundles .lcp-tier-statline {
+  margin: 6px 0 2px;
+  font-size: 0.82em;
+  color: #aaa;
+  text-align: center;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles .lcp-tier-pricing {
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles .lcp-value-line {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-bottom: 5px;
+  min-height: 1.2em;
+}
+
+.luke-courses-bundles .lcp-value-line s {
+  color: #999;
+  text-decoration-color: #d1d1d1;
+  text-decoration-thickness: 1.5px;
+}
+
+.luke-courses-bundles .lcp-tier-pricing .lcp-price-big {
+  font-size: 1.9em;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  color: #ffffff;
+}
+
+.luke-courses-bundles .lcp-price-cents {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+
+.luke-courses-bundles .lcp-tier-button {
+  display: block;
+  background-color: #03b4e9;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 12px 25px;
+  margin-top: 15px;
+}
+
+.luke-courses-bundles .lcp-tier-button:hover {
+  background-color: #017ca4;
+  color: white;
+}
+
+/* Floating tooltip (desktop hover only — positioned via JS) */
+.luke-courses-bundles .lcp-tooltip-float {
+  position: fixed;
+  z-index: 10050;
+  pointer-events: none;
+  max-width: 310px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  font-size: 14px;
+  color: #f0f0f0;
+  text-align: left;
+  line-height: 1.45;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles .lcp-tooltip-float-inner {
+  background: #1c2026;
+  border: 1px solid #333a45;
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.luke-courses-bundles .lcp-tooltip-float.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Caret below tooltip, pointing down at the hovered row (--lcp-arrow-left set in JS) */
+.luke-courses-bundles .lcp-tooltip-float--place-above::before,
+.luke-courses-bundles .lcp-tooltip-float--place-above::after {
+  content: "";
+  position: absolute;
+  left: var(--lcp-arrow-left, 50%);
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  pointer-events: none;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles .lcp-tooltip-float--place-above::before {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid #333a45;
+  border-bottom: none;
+}
+
+.luke-courses-bundles .lcp-tooltip-float--place-above::after {
+  margin-top: -7px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #1c2026;
+  border-bottom: none;
+}
+
+.luke-courses-bundles .lcp-tooltip-stats {
+  font-size: 13px;
+  color: #cfd6df;
+  margin-bottom: 10px;
+}
+
+.luke-courses-bundles .lcp-tooltip-desc {
+  margin: 0 0 12px;
+  color: #e8e8e8;
+  font-size: 14px;
+}
+
+.luke-courses-bundles .lcp-tooltip-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.luke-courses-bundles .lcp-chip {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(3, 180, 233, 0.35);
+  background: rgba(3, 180, 233, 0.08);
+  color: #cfd6df;
+}
+
+/* --- All-Access stripe --- */
+.luke-courses-bundles .lcp-aa-row {
+  position: relative;
+  max-width: 980px;
+  margin: 18px auto 0 auto;
+  padding: 18px 20px;
+  background: #1c2026;
+  border: 1px solid #333a45;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-family: "Source Sans Pro", "Source Sans 3", sans-serif;
+  color: #f0f0f0;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles .lcp-aa-row--highlight {
+  border: 2px solid #03b4e9;
+}
+
+.luke-courses-bundles .lcp-aa-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.luke-courses-bundles .lcp-aa-copy {
+  min-width: 0;
+}
+
+.luke-courses-bundles .lcp-aa-title {
+  font-size: 1.35em;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.luke-courses-bundles .lcp-aa-sub {
+  margin: 0;
+  color: #cfd6df;
+  font-size: 0.98em;
+  line-height: 1.25;
+}
+
+.luke-courses-bundles .lcp-aa-thumb {
+  width: 300px;
+  height: 82px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #333a45;
+  background: #0f1319;
+  flex-shrink: 0;
+}
+
+.luke-courses-bundles .lcp-aa-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.luke-courses-bundles .lcp-aa-pricebox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.luke-courses-bundles .lcp-aa-price {
+  font-size: 1.9em;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1;
+}
+
+.luke-courses-bundles .lcp-aa-price .lcp-price-cents {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+
+.luke-courses-bundles .lcp-aa-button {
+  display: inline-block;
+  background-color: #03b4e9;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 800;
+  padding: 12px 18px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.luke-courses-bundles .lcp-aa-button:hover {
+  background-color: #017ca4;
+  color: #fff;
+}
+
+@media (min-width: 1200px) {
+  .luke-courses-bundles .lcp-aa-thumb {
+    width: 360px;
+    height: 95px;
+  }
+}
+
+@media (max-width: 991px) {
+  .luke-courses-bundles .lcp-bundle-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .luke-courses-bundles .lcp-bundle-tier {
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  .luke-courses-bundles .lcp-bundle-tier:last-of-type {
+    margin-bottom: 0;
+  }
+  .luke-courses-bundles .lcp-aa-row {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+  .luke-courses-bundles .lcp-aa-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .luke-courses-bundles .lcp-aa-thumb {
+    width: 100%;
+    height: 120px;
+    object-position: center;
+  }
+  .luke-courses-bundles .lcp-aa-right {
+    width: 100%;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .luke-courses-bundles .lcp-aa-pricebox {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 767px) {
+  .luke-courses-bundles .lcp-bundle-tier {
+    width: 95%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 520px) {
+  .luke-courses-bundles .lcp-aa-right {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .luke-courses-bundles .lcp-aa-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* --- Individual course grid --- */
+.luke-courses-individual .lcp-course-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+  margin-top: 40px;
+  font-family: "Source Sans Pro", "Source Sans 3", sans-serif;
+}
+
+.luke-courses-individual .lcp-course-card {
+  background-color: #1c2026;
+  border: 1px solid #333a45;
+  border-radius: 8px;
+  width: 320px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.luke-courses-individual .lcp-course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.luke-courses-individual .lcp-course-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background-color: #333a45;
+}
+
+.luke-courses-individual .lcp-course-body {
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  color: #f0f0f0;
+}
+
+.luke-courses-individual .lcp-course-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  text-align: center;
+  line-height: 1.35;
+  min-height: 2.7em;
+}
+
+.luke-courses-individual ul.lcp-course-benefits {
+  list-style: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.luke-courses-individual ul.lcp-course-benefits > li.lcp-course-benefit {
+  list-style: none;
+  list-style-type: none;
+  margin: 0 0 8px 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.95em;
+  color: #f0f0f0;
+  line-height: 1.3;
+}
+
+.luke-courses-individual
+  ul.lcp-course-benefits
+  > li.lcp-course-benefit:last-child {
+  margin-bottom: 0;
+}
+
+.luke-courses-individual .lcp-course-benefit-ico {
+  flex-shrink: 0;
+  width: 1.35em;
+  margin-right: 11px;
+  text-align: center;
+  line-height: 1.35;
+  margin-top: 1px;
+}
+
+.luke-courses-individual .lcp-course-benefit-txt {
+  flex: 1;
+  min-width: 0;
+}
+
+.luke-courses-individual .lcp-course-footer {
+  margin-top: 22px;
+  text-align: center;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.luke-courses-individual .lcp-course-footer .lcp-price-big {
+  font-size: 1.9em;
+  font-weight: bold;
+  margin: 0;
+  color: #ffffff;
+  text-align: center;
+}
+
+.luke-courses-individual .lcp-course-footer .lcp-price-cents {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+
+.luke-courses-individual .lcp-course-button {
+  display: block;
+  background-color: #03b4e9;
+  color: white;
+  padding: 10px 25px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 0;
+}
+
+.luke-courses-individual .lcp-course-button:hover {
+  background-color: #017ca4;
+  color: white;
+}
+
+@media (max-width: 991px) {
+  .luke-courses-individual .lcp-course-grid {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .luke-courses-individual .lcp-course-card {
+    width: 95%;
+    max-width: 400px;
+  }
+}

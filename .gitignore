@@ -43,6 +43,10 @@ landing/*
 !landing/pricing/
 !landing/pricing/**
 
+!courses-page/
+courses-page/*
+!courses-page/*.html
+
 # Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
 .DS_Store
 ._*

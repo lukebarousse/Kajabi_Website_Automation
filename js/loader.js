@@ -1,37 +1,46 @@
 /* ============================================================
    LUKE'S KAJABI CONTENT LOADER
 
-   Single script, five modes. Each host page only needs:
+   Single script, seven modes. Each host page only needs:
 
-     <div class="luke-upsell"          data-upsell="SLUG"></div>
+     <div class="luke-upsell"              data-upsell="SLUG"></div>
      — OR —
-     <div class="luke-checkout"        data-checkout="COURSE-KEY"></div>
+     <div class="luke-checkout"            data-checkout="COURSE-KEY"></div>
      — OR —
-     <div class="luke-bundle"          data-bundle="BUNDLE-KEY"></div>
+     <div class="luke-bundle"              data-bundle="BUNDLE-KEY"></div>
      — OR —
-     <div class="luke-shopify"         data-shopify-page="SLUG"></div>
+     <div class="luke-shopify"             data-shopify-page="SLUG"></div>
      — OR —
-     <div class="luke-landing-pricing" data-landing-pricing="COURSE-KEY"></div>
+     <div class="luke-landing-pricing"     data-landing-pricing="COURSE-KEY"></div>
+     — OR —
+     <div class="luke-courses-bundles"     data-courses-page-bundles="all"></div>
+     — OR —
+     <div class="luke-courses-individual"  data-courses-page-individual="all"></div>
 
      <script src=".../js/loader.js" defer></script>
 
    The script finds every container on the page and dispatches
    based on which attribute is present:
 
-     data-upsell           → inject shared.css + upsell.css,
-                             fetch /upsells/pages/SLUG
+     data-upsell                → shared + upsell.css, /upsells/pages/SLUG
 
-     data-checkout         → inject shared.css + checkout.css,
-                             fetch /checkouts/pages/COURSE-KEY
+     data-checkout              → shared + checkout.css + carousel,
+                                  /checkouts/pages/COURSE-KEY
 
-     data-bundle           → inject shared.css + checkout.css + upsell.css + bundle.css,
-                             fetch /checkouts/bundles/BUNDLE-KEY
+     data-bundle                → shared + checkout + upsell + bundle + carousel,
+                                  /checkouts/bundles/BUNDLE-KEY
 
-     data-shopify-page     → inject shared.css + checkout.css + upsell.css + shopify.css,
-                             fetch /shopify/pages/SLUG
+     data-shopify-page          → shared + checkout + upsell + shopify.css,
+                                  /shopify/pages/SLUG
 
-     data-landing-pricing  → inject shared.css + landing.css,
-                             fetch /landing/pricing/COURSE-KEY
+     data-landing-pricing       → shared + landing.css,
+                                  /landing/pricing/COURSE-KEY
+
+     data-courses-page-bundles  → shared + courses-page.css + courses-page.js,
+                                  /courses-page/bundles
+
+     data-courses-page-individual → shared + courses-page.css,
+                                    /courses-page/individual
 
    Hosting: Cloudflare Pages (atomic deploys). Each deploy is
    served with `Cache-Control: public, max-age=0, must-revalidate`,
@@ -60,6 +69,10 @@
   var SHOPIFY_CSS_URL = BASE + '/css/shopify.css';
   var LANDING_CSS_URL = BASE + '/css/landing.css';
   var LANDING_PRICING_PAGES_URL = BASE + '/landing/pricing/';
+  var COURSES_PAGE_CSS_URL = BASE + '/css/courses-page.css';
+  var COURSES_PAGE_JS_URL = BASE + '/js/courses-page.js';
+  var COURSES_PAGE_BUNDLES_URL = BASE + '/courses-page/bundles';
+  var COURSES_PAGE_INDIVIDUAL_URL = BASE + '/courses-page/individual';
 
   function injectStylesheet(href, marker) {
     if (document.querySelector('link[data-lb-css="' + marker + '"]')) return;
@@ -80,11 +93,14 @@
   }
 
   function runCheckoutEnhancers(container) {
-    // The carousel script auto-initializes on DOMContentLoaded, but we
-    // also fire it explicitly because HTML may land AFTER that event.
-    // It's idempotent — carousels already initialized are skipped.
     if (typeof window.__lukeInitCheckoutCarousels__ === 'function') {
       window.__lukeInitCheckoutCarousels__(container);
+    }
+  }
+
+  function runCoursesPageInit(container) {
+    if (typeof window.__lukeInitCoursesPage__ === 'function') {
+      window.__lukeInitCoursesPage__(container);
     }
   }
 
@@ -112,11 +128,58 @@
         container.innerHTML = html;
         container.setAttribute(loadedAttr, 'true');
         if (opts.runCarousel) runCheckoutEnhancers(container);
+        if (opts.runCoursesInit) runCoursesPageInit(container);
       })
       .catch(function (err) {
         console.error('[luke-loader] failed to load ' + dataAttr + ' "' + slug + '":', err);
         container.style.display = 'none';
       });
+  }
+
+  function loadCoursesFixedUrl(container, dataAttr, fullUrl, withTooltips) {
+    var loadedAttr = dataAttr + '-loaded';
+    fetch(fullUrl)
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status + ' fetching ' + fullUrl);
+        }
+        return response.text();
+      })
+      .then(function (html) {
+        container.innerHTML = html;
+        container.setAttribute(loadedAttr, 'true');
+        if (withTooltips) runCoursesPageInit(container);
+      })
+      .catch(function (err) {
+        console.error('[luke-loader] failed to load courses section:', err);
+        container.style.display = 'none';
+      });
+  }
+
+  function injectCoursesScript(callback) {
+    if (typeof window.__lukeInitCoursesPage__ === 'function') {
+      callback();
+      return;
+    }
+    var existing = document.querySelector('script[data-lb-js="courses-page"]');
+    if (existing) {
+      if (existing.getAttribute('data-lb-ready') === '1') {
+        callback();
+      } else {
+        existing.addEventListener('load', callback);
+      }
+      return;
+    }
+    var s = document.createElement('script');
+    s.src = COURSES_PAGE_JS_URL;
+    s.async = true;
+    s.setAttribute('data-lb-js', 'courses-page');
+    s.onload = function () {
+      s.setAttribute('data-lb-ready', '1');
+      callback();
+    };
+    s.onerror = callback;
+    (document.head || document.documentElement).appendChild(s);
   }
 
   function init() {
@@ -127,16 +190,24 @@
     var landingPricing = document.querySelectorAll(
       '.luke-landing-pricing[data-landing-pricing]'
     );
+    var coursesBundles = document.querySelectorAll(
+      '.luke-courses-bundles[data-courses-page-bundles]'
+    );
+    var coursesIndividual = document.querySelectorAll(
+      '.luke-courses-individual[data-courses-page-individual]'
+    );
 
     if (
       upsells.length === 0 &&
       checkouts.length === 0 &&
       bundles.length === 0 &&
       shopify.length === 0 &&
-      landingPricing.length === 0
+      landingPricing.length === 0 &&
+      coursesBundles.length === 0 &&
+      coursesIndividual.length === 0
     ) {
       console.warn(
-        '[luke-loader] no .luke-upsell, .luke-checkout, .luke-bundle, .luke-shopify, or .luke-landing-pricing containers found on page'
+        '[luke-loader] no recognized Luke content containers found on page'
       );
       return;
     }
@@ -185,6 +256,41 @@
       Array.prototype.forEach.call(landingPricing, function (c) {
         loadContainer(c, 'data-landing-pricing', LANDING_PRICING_PAGES_URL);
       });
+    }
+
+    var coursesNeedsCss =
+      coursesBundles.length > 0 || coursesIndividual.length > 0;
+    if (coursesNeedsCss) {
+      injectStylesheet(SHARED_CSS_URL, 'shared');
+      injectStylesheet(COURSES_PAGE_CSS_URL, 'courses-page');
+    }
+    function loadAllCoursesIndividual() {
+      Array.prototype.forEach.call(coursesIndividual, function (c) {
+        loadCoursesFixedUrl(
+          c,
+          'data-courses-page-individual',
+          COURSES_PAGE_INDIVIDUAL_URL,
+          false
+        );
+      });
+    }
+    function loadAllCoursesBundles() {
+      Array.prototype.forEach.call(coursesBundles, function (c) {
+        loadCoursesFixedUrl(
+          c,
+          'data-courses-page-bundles',
+          COURSES_PAGE_BUNDLES_URL,
+          true
+        );
+      });
+    }
+    if (coursesBundles.length > 0) {
+      injectCoursesScript(function () {
+        loadAllCoursesBundles();
+        if (coursesIndividual.length > 0) loadAllCoursesIndividual();
+      });
+    } else if (coursesIndividual.length > 0) {
+      loadAllCoursesIndividual();
     }
   }
 
