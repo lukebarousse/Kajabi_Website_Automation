@@ -19,7 +19,11 @@
 .luke-shopify .ls-taglines {
   text-align: center;
   margin: 0 auto 1.25rem;
-  max-width: 28rem;
+  /* Full width of the description column — a fixed max-width was forcing
+     early wraps (e.g. after "structure,") on wide Shopify layouts. */
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
   font-size: 16px;
 }
 
