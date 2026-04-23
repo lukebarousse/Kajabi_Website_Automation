@@ -1,5 +1,7 @@
 /* ============================================================
    /courses page — bundle tier row tooltips (desktop hover only)
+   Tooltip node lives on document.body to avoid Kajabi ancestors
+   (transform / filter / containment) breaking position: fixed.
    ============================================================ */
 
 (function () {
@@ -9,6 +11,11 @@
   /** Vertical gap between tooltip bottom and row top (px). */
   var GAP_ABOVE_ROW = 10;
   var CARD_PAD = 6;
+
+  var tooltipEl = null;
+  var activeRow = null;
+  var globalListenersBound = false;
+  var mqListenerBound = false;
 
   function positionFloat(floatEl, rowRect, cardRect) {
     if (cardRect && cardRect.width > 0) {
@@ -67,6 +74,86 @@
     return card ? card.getBoundingClientRect() : null;
   }
 
+  function ensureTooltipOnBody() {
+    if (tooltipEl && document.body.contains(tooltipEl)) {
+      return tooltipEl;
+    }
+    var el = document.createElement('div');
+    el.className = 'lcp-tooltip-float';
+    el.setAttribute('data-lcp-courses-tooltip', '1');
+    el.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(el);
+    tooltipEl = el;
+    return tooltipEl;
+  }
+
+  function hideTooltip() {
+    if (tooltipEl) {
+      tooltipEl.classList.remove('is-visible');
+      tooltipEl.innerHTML = '';
+      tooltipEl.style.maxWidth = '';
+      tooltipEl.style.width = '';
+    }
+    if (activeRow) {
+      activeRow.classList.remove('is-lcp-row-active');
+      activeRow = null;
+    }
+  }
+
+  function reposition() {
+    if (
+      !tooltipEl ||
+      !activeRow ||
+      !tooltipEl.classList.contains('is-visible')
+    ) {
+      return;
+    }
+    positionFloat(
+      tooltipEl,
+      activeRow.getBoundingClientRect(),
+      cardRectForRow(activeRow)
+    );
+  }
+
+  function onCoursesMqChange() {
+    var mq = window.matchMedia('(hover: hover) and (min-width: 992px)');
+    if (!mq.matches) {
+      hideTooltip();
+      Array.prototype.forEach.call(
+        document.querySelectorAll(
+          '.luke-courses-bundles[data-lcp-tooltips-init="1"]'
+        ),
+        function (r) {
+          r.classList.remove('lcp-tooltips-enabled');
+        }
+      );
+    } else {
+      Array.prototype.forEach.call(
+        document.querySelectorAll(
+          '.luke-courses-bundles[data-lcp-tooltips-init="1"]'
+        ),
+        function (r) {
+          r.classList.add('lcp-tooltips-enabled');
+        }
+      );
+    }
+  }
+
+  function bindGlobalListenersOnce() {
+    if (globalListenersBound) return;
+    globalListenersBound = true;
+    window.addEventListener('scroll', reposition, true);
+    window.addEventListener('resize', reposition);
+  }
+
+  function bindMqListenerOnce() {
+    if (mqListenerBound) return;
+    mqListenerBound = true;
+    window
+      .matchMedia('(hover: hover) and (min-width: 992px)')
+      .addEventListener('change', onCoursesMqChange);
+  }
+
   function initBundlesRoot(root) {
     if (!root || root.getAttribute('data-lcp-tooltips-init') === '1') return;
     var mq = window.matchMedia('(hover: hover) and (min-width: 992px)');
@@ -78,31 +165,9 @@
     root.setAttribute('data-lcp-tooltips-init', '1');
     root.classList.add('lcp-tooltips-enabled');
 
-    var floatEl = document.createElement('div');
-    floatEl.className = 'lcp-tooltip-float';
-    floatEl.setAttribute('aria-hidden', 'true');
-    root.appendChild(floatEl);
-
-    var activeRow = null;
-
-    function hideTooltip() {
-      floatEl.classList.remove('is-visible');
-      floatEl.style.maxWidth = '';
-      floatEl.style.width = '';
-      if (activeRow) {
-        activeRow.classList.remove('is-lcp-row-active');
-        activeRow = null;
-      }
-    }
-
-    function reposition() {
-      if (!activeRow || !floatEl.classList.contains('is-visible')) return;
-      positionFloat(
-        floatEl,
-        activeRow.getBoundingClientRect(),
-        cardRectForRow(activeRow)
-      );
-    }
+    var floatEl = ensureTooltipOnBody();
+    bindGlobalListenersOnce();
+    bindMqListenerOnce();
 
     Array.prototype.forEach.call(rows, function (row) {
       var tipSrc = row.querySelector('.lcp-tip-html');
@@ -139,18 +204,6 @@
       row.addEventListener('mouseleave', function () {
         hideTooltip();
       });
-    });
-
-    window.addEventListener('scroll', reposition, true);
-    window.addEventListener('resize', reposition);
-
-    mq.addEventListener('change', function () {
-      if (!mq.matches) {
-        hideTooltip();
-        root.classList.remove('lcp-tooltips-enabled');
-      } else {
-        root.classList.add('lcp-tooltips-enabled');
-      }
     });
   }
 

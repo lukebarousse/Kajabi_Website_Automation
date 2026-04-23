@@ -235,10 +235,10 @@
   color: white;
 }
 
-/* Floating tooltip (desktop hover only — positioned via JS) */
-.luke-courses-bundles .lcp-tooltip-float {
+/* Floating tooltip on document.body (avoids Kajabi transform/contain on fixed) */
+.lcp-tooltip-float[data-lcp-courses-tooltip] {
   position: fixed;
-  z-index: 10050;
+  z-index: 100050;
   pointer-events: none;
   max-width: 310px;
   padding: 0;
@@ -258,7 +258,7 @@
   box-sizing: border-box;
 }
 
-.luke-courses-bundles .lcp-tooltip-float-inner {
+.lcp-tooltip-float[data-lcp-courses-tooltip] .lcp-tooltip-float-inner {
   background: #1c2026;
   border: 1px solid #333a45;
   border-radius: 8px;
@@ -268,14 +268,14 @@
   z-index: 1;
 }
 
-.luke-courses-bundles .lcp-tooltip-float.is-visible {
+.lcp-tooltip-float[data-lcp-courses-tooltip].is-visible {
   opacity: 1;
   visibility: visible;
 }
 
 /* Caret below tooltip, pointing down at the hovered row (--lcp-arrow-left set in JS) */
-.luke-courses-bundles .lcp-tooltip-float--place-above::before,
-.luke-courses-bundles .lcp-tooltip-float--place-above::after {
+.lcp-tooltip-float[data-lcp-courses-tooltip].lcp-tooltip-float--place-above::before,
+.lcp-tooltip-float[data-lcp-courses-tooltip].lcp-tooltip-float--place-above::after {
   content: "";
   position: absolute;
   left: var(--lcp-arrow-left, 50%);
@@ -288,14 +288,14 @@
   box-sizing: border-box;
 }
 
-.luke-courses-bundles .lcp-tooltip-float--place-above::before {
+.lcp-tooltip-float[data-lcp-courses-tooltip].lcp-tooltip-float--place-above::before {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-top: 8px solid #333a45;
   border-bottom: none;
 }
 
-.luke-courses-bundles .lcp-tooltip-float--place-above::after {
+.lcp-tooltip-float[data-lcp-courses-tooltip].lcp-tooltip-float--place-above::after {
   margin-top: -7px;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
@@ -303,25 +303,25 @@
   border-bottom: none;
 }
 
-.luke-courses-bundles .lcp-tooltip-stats {
+.lcp-tooltip-float[data-lcp-courses-tooltip] .lcp-tooltip-stats {
   font-size: 13px;
   color: #cfd6df;
   margin-bottom: 10px;
 }
 
-.luke-courses-bundles .lcp-tooltip-desc {
+.lcp-tooltip-float[data-lcp-courses-tooltip] .lcp-tooltip-desc {
   margin: 0 0 12px;
   color: #e8e8e8;
   font-size: 14px;
 }
 
-.luke-courses-bundles .lcp-tooltip-chips {
+.lcp-tooltip-float[data-lcp-courses-tooltip] .lcp-tooltip-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.luke-courses-bundles .lcp-chip {
+.lcp-tooltip-float[data-lcp-courses-tooltip] .lcp-chip {
   display: inline-block;
   font-size: 11px;
   padding: 4px 8px;
