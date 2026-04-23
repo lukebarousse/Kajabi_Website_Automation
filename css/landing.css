@@ -6,6 +6,10 @@
    ============================================================ */
 
 .luke-landing-pricing {
+  /* Site marketing blue (lukebarousse.com); checkout/upsell/bundle keep --lb-blue */
+  --llp-accent: #00b7ff;
+  --llp-accent-hover: #0098d9;
+
   width: 100%;
   max-width: 920px;
   margin: 0 auto;
@@ -37,8 +41,8 @@
 
 .luke-landing-pricing .llp-card--supporter {
   background: linear-gradient(
-      rgba(59, 158, 255, 0.03),
-      rgba(59, 158, 255, 0.03)
+      rgba(0, 183, 255, 0.03),
+      rgba(0, 183, 255, 0.03)
     ),
     var(--lb-surface-2);
 }
@@ -53,7 +57,7 @@
 }
 
 .luke-landing-pricing .llp-card--supporter .llp-card-label {
-  color: var(--lb-blue);
+  color: var(--llp-accent);
 }
 
 .luke-landing-pricing .llp-price {
@@ -121,7 +125,7 @@
   font-size: 16px;
   font-weight: 700;
   color: #fff;
-  background: var(--lb-blue);
+  background: var(--llp-accent);
   border-radius: 8px;
   padding: 14px 20px;
   text-decoration: none;
@@ -129,12 +133,12 @@
 }
 
 .luke-landing-pricing .llp-card--supporter .llp-cta:hover {
-  background: var(--lb-blue-hover);
+  background: var(--llp-accent-hover);
   color: #fff;
 }
 
 .luke-landing-pricing .llp-card--supporter .llp-cta:focus-visible {
-  outline: 2px solid var(--lb-blue);
+  outline: 2px solid var(--llp-accent);
   outline-offset: 2px;
 }
 
