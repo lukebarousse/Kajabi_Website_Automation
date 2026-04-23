@@ -46,18 +46,30 @@
   margin: 0.55em 0 0;
 }
 
-/* Match bundle checkout: nested .lu-bundle-courses-wrap inside .luke-shopify */
-.luke-shopify .luke-upsell.lu-bundle-courses-wrap {
+/* Bundle courses block + Shopify perks panels: full width, no extra upsell gutter */
+.luke-shopify .luke-upsell.lu-bundle-courses-wrap,
+.luke-shopify .luke-upsell.ls-shopify-panel {
   max-width: 100%;
   margin: 0 auto 1.5rem;
   padding: 0;
 }
 
+/* Checkout gives .lc-perks-list margin-bottom: 40px for blocks below; inside
+   .lu-receipt that reads as extra empty space above the bottom border. */
+.luke-shopify .lu-receipt .lc-perks-list {
+  margin-bottom: 0;
+}
+
+.luke-shopify .ls-shopify-panel .lc-perks-list {
+  margin-top: 2px;
+}
+
+/* Bundle courses card: trim padding under the final “Bundle price” row */
+.luke-shopify .lu-bundle-courses-wrap .lu-subtotal {
+  padding-bottom: 2px;
+}
+
 .luke-shopify .lu-bundle-sub-hint {
   font-weight: 400;
   color: var(--lb-text-faint);
-}
-
-.luke-shopify .lc-perks-list {
-  margin-top: 0.25rem;
 }
