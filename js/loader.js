@@ -1,27 +1,32 @@
 /* ============================================================
    LUKE'S KAJABI CONTENT LOADER
 
-   Single script, three modes. Each Kajabi page only needs:
+   Single script, four modes. Each host page only needs:
 
-     <div class="luke-upsell"   data-upsell="SLUG"></div>
+     <div class="luke-upsell"       data-upsell="SLUG"></div>
      — OR —
-     <div class="luke-checkout" data-checkout="COURSE-KEY"></div>
+     <div class="luke-checkout"     data-checkout="COURSE-KEY"></div>
      — OR —
-     <div class="luke-bundle"   data-bundle="BUNDLE-KEY"></div>
+     <div class="luke-bundle"       data-bundle="BUNDLE-KEY"></div>
+     — OR —
+     <div class="luke-shopify"      data-shopify-page="SLUG"></div>
 
      <script src=".../js/loader.js" defer></script>
 
    The script finds every container on the page and dispatches
    based on which attribute is present:
 
-     data-upsell   → inject shared.css + upsell.css,
-                     fetch /upsells/pages/SLUG
+     data-upsell        → inject shared.css + upsell.css,
+                          fetch /upsells/pages/SLUG
 
-     data-checkout → inject shared.css + checkout.css,
-                     fetch /checkouts/pages/COURSE-KEY
+     data-checkout      → inject shared.css + checkout.css,
+                          fetch /checkouts/pages/COURSE-KEY
 
-     data-bundle   → inject shared.css + checkout.css + upsell.css + bundle.css,
-                     fetch /checkouts/bundles/BUNDLE-KEY
+     data-bundle        → inject shared.css + checkout.css + upsell.css + bundle.css,
+                          fetch /checkouts/bundles/BUNDLE-KEY
+
+     data-shopify-page  → inject shared.css + checkout.css + upsell.css + shopify.css,
+                          fetch /shopify/pages/SLUG
 
    Hosting: Cloudflare Pages (atomic deploys). Each deploy is
    served with `Cache-Control: public, max-age=0, must-revalidate`,
@@ -46,6 +51,8 @@
   var UPSELL_PAGES_URL = BASE + '/upsells/pages/';
   var CHECKOUT_PAGES_URL = BASE + '/checkouts/pages/';
   var BUNDLE_PAGES_URL = BASE + '/checkouts/bundles/';
+  var SHOPIFY_PAGES_URL = BASE + '/shopify/pages/';
+  var SHOPIFY_CSS_URL = BASE + '/css/shopify.css';
 
   function injectStylesheet(href, marker) {
     if (document.querySelector('link[data-lb-css="' + marker + '"]')) return;
@@ -74,12 +81,18 @@
     }
   }
 
-  function loadContainer(container, kind, pagesBase) {
-    var slug = container.getAttribute('data-' + kind);
+  /**
+   * @param {string} dataAttr - e.g. 'data-checkout', 'data-shopify-page'
+   * @param {{ runCarousel?: boolean }} opts
+   */
+  function loadContainer(container, dataAttr, pagesBase, opts) {
+    opts = opts || {};
+    var slug = container.getAttribute(dataAttr);
     if (!slug) {
-      console.warn('[luke-' + kind + '] container missing data-' + kind + ' attribute');
+      console.warn('[luke-loader] container missing ' + dataAttr + ' attribute');
       return;
     }
+    var loadedAttr = dataAttr + '-loaded';
     var url = pagesBase + slug;
     fetch(url)
       .then(function (response) {
@@ -90,11 +103,11 @@
       })
       .then(function (html) {
         container.innerHTML = html;
-        container.setAttribute('data-' + kind + '-loaded', 'true');
-        if (kind === 'checkout' || kind === 'bundle') runCheckoutEnhancers(container);
+        container.setAttribute(loadedAttr, 'true');
+        if (opts.runCarousel) runCheckoutEnhancers(container);
       })
       .catch(function (err) {
-        console.error('[luke-' + kind + '] failed to load "' + slug + '":', err);
+        console.error('[luke-loader] failed to load ' + dataAttr + ' "' + slug + '":', err);
         container.style.display = 'none';
       });
   }
@@ -103,9 +116,17 @@
     var upsells = document.querySelectorAll('.luke-upsell[data-upsell]');
     var checkouts = document.querySelectorAll('.luke-checkout[data-checkout]');
     var bundles = document.querySelectorAll('.luke-bundle[data-bundle]');
+    var shopify = document.querySelectorAll('.luke-shopify[data-shopify-page]');
 
-    if (upsells.length === 0 && checkouts.length === 0 && bundles.length === 0) {
-      console.warn('[luke-loader] no .luke-upsell, .luke-checkout, or .luke-bundle containers found on page');
+    if (
+      upsells.length === 0 &&
+      checkouts.length === 0 &&
+      bundles.length === 0 &&
+      shopify.length === 0
+    ) {
+      console.warn(
+        '[luke-loader] no .luke-upsell, .luke-checkout, .luke-bundle, or .luke-shopify containers found on page'
+      );
       return;
     }
 
@@ -113,7 +134,7 @@
       injectStylesheet(SHARED_CSS_URL, 'shared');
       injectStylesheet(UPSELL_CSS_URL, 'upsell');
       Array.prototype.forEach.call(upsells, function (c) {
-        loadContainer(c, 'upsell', UPSELL_PAGES_URL);
+        loadContainer(c, 'data-upsell', UPSELL_PAGES_URL);
       });
     }
 
@@ -122,7 +143,7 @@
       injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
       injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
       Array.prototype.forEach.call(checkouts, function (c) {
-        loadContainer(c, 'checkout', CHECKOUT_PAGES_URL);
+        loadContainer(c, 'data-checkout', CHECKOUT_PAGES_URL, { runCarousel: true });
       });
     }
 
@@ -133,7 +154,17 @@
       injectStylesheet(BUNDLE_CSS_URL, 'bundle');
       injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
       Array.prototype.forEach.call(bundles, function (c) {
-        loadContainer(c, 'bundle', BUNDLE_PAGES_URL);
+        loadContainer(c, 'data-bundle', BUNDLE_PAGES_URL, { runCarousel: true });
+      });
+    }
+
+    if (shopify.length > 0) {
+      injectStylesheet(SHARED_CSS_URL, 'shared');
+      injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
+      injectStylesheet(UPSELL_CSS_URL, 'upsell');
+      injectStylesheet(SHOPIFY_CSS_URL, 'shopify');
+      Array.prototype.forEach.call(shopify, function (c) {
+        loadContainer(c, 'data-shopify-page', SHOPIFY_PAGES_URL);
       });
     }
   }

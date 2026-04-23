@@ -1,0 +1,52 @@
+/* ============================================================
+   SHOPIFY PRODUCT DESCRIPTION INJECT
+
+   Loader order: shared.css → checkout.css → upsell.css → shopify.css.
+   Narrow theme columns: keep content fluid inside .luke-shopify.
+   ============================================================ */
+
+.luke-shopify {
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 0 2px;
+  margin-top: 24px;
+  border-top: 1px solid var(--lb-border-strong);
+  padding-top: 1.25rem;
+}
+
+.luke-shopify .ls-taglines {
+  text-align: center;
+  margin: 0 auto 1.25rem;
+  max-width: 28rem;
+}
+
+.luke-shopify .ls-tagline-line,
+.luke-shopify .ls-tagline-footnote {
+  font-style: italic;
+  color: rgba(245, 245, 247, 0.88);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 0.35em;
+}
+
+.luke-shopify .ls-tagline-footnote {
+  color: rgba(245, 245, 247, 0.62);
+  font-size: 0.88em;
+  margin-top: 0.5em;
+}
+
+/* Match bundle checkout: nested .lu-bundle-courses-wrap inside .luke-shopify */
+.luke-shopify .luke-upsell.lu-bundle-courses-wrap {
+  max-width: 100%;
+  margin: 0 auto 1.5rem;
+  padding: 0;
+}
+
+.luke-shopify .lu-bundle-sub-hint {
+  font-weight: 400;
+  color: var(--lb-text-faint);
+}
+
+.luke-shopify .lc-perks-list {
+  margin-top: 0.25rem;
+}

@@ -32,18 +32,18 @@
   }
 }
 
-:is(.luke-checkout, .luke-bundle) {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) {
   max-width: 620px;
   margin: 0 auto;
   padding: 0 20px 40px;
 }
 
 /* ---------- BLOCK 1: HEADER ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-header {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-header {
   margin-bottom: 32px;
   text-align: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-header h1 {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-header h1 {
   font-size: clamp(36px, 5vw, 52px);
   font-weight: 700;
   line-height: 1.05;
@@ -52,7 +52,7 @@
   /* No text-wrap: balance here — it fights the intentional <wbr> before
      ' for …' and can yield 'Power BI for' | 'Data Analytics'. */
 }
-:is(.luke-checkout, .luke-bundle) .lc-header h2 {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-header h2 {
   font-size: 28px;
   font-weight: 500;
   line-height: 1.35;
@@ -70,10 +70,10 @@
   color: var(--lb-blue);
   font-weight: 400;
 }
-:is(.luke-checkout, .luke-bundle) .lc-accent {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-accent {
   color: var(--lb-blue);
 }
-:is(.luke-checkout, .luke-bundle) .lc-tagline {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-tagline {
   font-style: italic;
   font-size: 18px;
   color: var(--lb-text);
@@ -82,14 +82,14 @@
 }
 
 /* ---------- BLOCK 2: COURSE IMAGE ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-course-image {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-course-image {
   margin-bottom: 32px;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--lb-border);
   background: var(--lb-surface);
 }
-:is(.luke-checkout, .luke-bundle) .lc-course-image img {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-course-image img {
   display: block;
   width: 100%;
   height: auto;
@@ -110,13 +110,13 @@
 }
 
 /* ---------- BLOCK 3: TRUST STRIP ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-trust-strip {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 36px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-trust-stat {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-stat {
   background: var(--lb-surface);
   border: 1px solid var(--lb-border);
   border-radius: 12px;
@@ -124,11 +124,11 @@
   text-align: center;
   transition: border-color 0.2s, transform 0.2s;
 }
-:is(.luke-checkout, .luke-bundle) .lc-trust-stat:hover {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-stat:hover {
   border-color: var(--lb-border-strong);
   transform: translateY(-1px);
 }
-:is(.luke-checkout, .luke-bundle) .lc-trust-logo {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-logo {
   display: block;
   height: 26px;
   width: auto;
@@ -136,7 +136,7 @@
   margin: 0 auto 10px;
   object-fit: contain;
 }
-:is(.luke-checkout, .luke-bundle) .lc-trust-number {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-number {
   font-size: 20px;
   font-weight: 700;
   color: var(--lb-blue);
@@ -144,7 +144,7 @@
   line-height: 1.15;
   margin-bottom: 4px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-trust-label {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-label {
   font-size: 14px;
   font-weight: 500;
   color: var(--lb-text-dim);
@@ -152,31 +152,31 @@
 }
 
 /* ---------- BLOCK 4: PERKS LIST ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-perks-list {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-perks-list {
   margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 22px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-perk-item {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-perk-item {
   display: grid;
   grid-template-columns: 44px 1fr;
   gap: 16px;
   align-items: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-perk-icon {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-perk-icon {
   font-size: 32px;
   line-height: 1;
   text-align: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-perk-content h3 {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-perk-content h3 {
   font-size: 17px;
   font-weight: 700;
   color: var(--lb-text);
   margin: 0 0 4px;
   letter-spacing: -0.005em;
 }
-:is(.luke-checkout, .luke-bundle) .lc-perk-content p {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-perk-content p {
   font-size: 15px;
   color: var(--lb-text-dim);
   line-height: 1.5;
@@ -184,10 +184,10 @@
 }
 
 /* ---------- BLOCK 5: STUDENTS (label + rating + testimonial carousel) ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-students {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-students {
   margin-bottom: 28px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-students-label {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-students-label {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -196,23 +196,23 @@
   text-align: center;
   margin-bottom: 10px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-students-rating {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-students-rating {
   font-size: 15px;
   color: var(--lb-text-dim);
   line-height: 1.5;
   text-align: center;
   margin-bottom: 16px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-students-rating strong {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-students-rating strong {
   color: var(--lb-text);
   font-weight: 700;
 }
-:is(.luke-checkout, .luke-bundle) .lc-star {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-star {
   color: var(--lb-amber);
   font-size: 17px;
   margin-right: 2px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-students-divider {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-students-divider {
   height: 1px;
   max-width: 60%;
   margin: 0 auto 20px;
@@ -221,15 +221,15 @@
 
 /* Card visuals stay on each .lc-testimonial slide. Only the carousel
    wrapper owns layout (stacking + dots + outer margin). */
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-carousel {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-carousel {
   position: relative;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-slides {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-slides {
   /* All slides occupy the same grid cell, so the carousel grows to
      fit the tallest quote and there's no layout jump on cycle. */
   display: grid;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial {
   background: var(--lb-surface);
   border: 1px solid var(--lb-border);
   border-radius: 14px;
@@ -241,7 +241,7 @@
   position: relative;
   overflow: hidden;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial::before {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial::before {
   content: '"';
   position: absolute;
   top: -20px;
@@ -253,19 +253,19 @@
   line-height: 1;
   font-weight: 700;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-slide {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-slide {
   grid-area: 1 / 1;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.45s ease;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-slide.is-active {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-slide.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
-:is(.luke-checkout, .luke-bundle) .lc-avatar {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-avatar {
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -278,18 +278,18 @@
   font-size: 20px;
   flex-shrink: 0;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-content {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-content {
   position: relative;
   z-index: 1;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-quote {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-quote {
   font-size: 15px;
   font-style: italic;
   color: var(--lb-text);
   line-height: 1.5;
   margin: 0 0 8px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-attribution {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-attribution {
   font-size: 13px;
   font-weight: 600;
   color: var(--lb-text-dim);
@@ -299,19 +299,19 @@
   align-items: baseline;
   gap: 6px 8px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-attribution-name {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-attribution-name {
   font-weight: 600;
   color: var(--lb-text);
 }
 /* Five filled stars after the student's name — same amber family as the
    aggregate rating line, slightly tighter and smaller so it reads as a
    badge, not a second headline. */
-:is(.luke-checkout, .luke-bundle) .lc-student-stars {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-student-stars {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
 }
-:is(.luke-checkout, .luke-bundle) .lc-student-stars-inner {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-student-stars-inner {
   display: inline-block;
   font-size: 11px;
   line-height: 1;
@@ -319,7 +319,7 @@
   color: var(--lb-amber);
   text-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-attribution .lc-role {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-attribution .lc-role {
   color: var(--lb-text-faint);
   font-weight: 400;
   flex-basis: 100%;
@@ -328,14 +328,14 @@
 /* Carousel nav sits below the card: prev arrow · dot row · next arrow.
    Controls are intentionally sized for thumbs (36–40px tap targets per
    WCAG) so mobile users don't fat-finger them. */
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-nav {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-nav {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   margin-top: 14px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-arrow {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-arrow {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -351,20 +351,20 @@
   font: inherit;
   flex-shrink: 0;
 }
-:is(.luke-checkout, .luke-bundle) .lc-arrow:hover {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-arrow:hover {
   background: var(--lb-surface-2);
   color: var(--lb-text);
   border-color: var(--lb-border-strong);
 }
-:is(.luke-checkout, .luke-bundle) .lc-arrow:active {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-arrow:active {
   transform: scale(0.94);
 }
-:is(.luke-checkout, .luke-bundle) .lc-arrow:focus-visible {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-arrow:focus-visible {
   outline: 2px solid var(--lb-blue);
   outline-offset: 2px;
 }
 
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-dots {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-dots {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -372,7 +372,7 @@
 /* Dots are tap targets: the visible pill is 10×10 but a 24×24 invisible
    hit area wraps it via padding + background-clip. The active pill
    elongates to signal position without adding a separate indicator. */
-:is(.luke-checkout, .luke-bundle) .lc-dot {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-dot {
   position: relative;
   width: 24px;
   height: 24px;
@@ -385,7 +385,7 @@
   align-items: center;
   justify-content: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-dot::before {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-dot::before {
   content: "";
   width: 10px;
   height: 10px;
@@ -393,33 +393,33 @@
   background: var(--lb-border-strong);
   transition: background 0.25s ease, width 0.25s ease;
 }
-:is(.luke-checkout, .luke-bundle) .lc-dot:hover::before {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-dot:hover::before {
   background: var(--lb-text-faint);
 }
-:is(.luke-checkout, .luke-bundle) .lc-dot.is-active::before {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-dot.is-active::before {
   width: 26px;
   background: var(--lb-blue);
 }
-:is(.luke-checkout, .luke-bundle) .lc-dot:focus-visible {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-dot:focus-visible {
   outline: 2px solid var(--lb-blue);
   outline-offset: 2px;
   border-radius: 999px;
 }
 
 /* Drag cursor hint on the slide track (desktop mouse users). */
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-slides {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-slides {
   touch-action: pan-y;          /* allow vertical scroll, capture horizontal */
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
 }
-:is(.luke-checkout, .luke-bundle) .lc-testimonial-slides.is-dragging {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-slides.is-dragging {
   cursor: grabbing;
 }
 
 /* Visually hidden — used for the polite live region that announces
    each new testimonial to screen readers without disturbing sighted UX. */
-:is(.luke-checkout, .luke-bundle) .lc-sr-only {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -432,7 +432,7 @@
 }
 
 /* ---------- BLOCK 6: RISK-FREE CARD ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-risk-free {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-risk-free {
   background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02));
   border: 1px solid rgba(34, 197, 94, 0.25);
   border-radius: 14px;
@@ -443,7 +443,7 @@
   gap: 20px;
   align-items: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-risk-free-icon {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-risk-free-icon {
   font-size: 56px;
   /* line-height 1.2 roughly matches emoji's intrinsic glyph placement,
      so grid's align-items: center lands the glyph's optical midpoint
@@ -452,33 +452,33 @@
   text-align: center;
   align-self: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-risk-free-content h3 {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-risk-free-content h3 {
   font-size: 16px;
   font-weight: 700;
   color: var(--lb-green);
   margin: 0 0 6px;
   letter-spacing: -0.005em;
 }
-:is(.luke-checkout, .luke-bundle) .lc-risk-free-content p {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-risk-free-content p {
   font-size: 14px;
   color: var(--lb-text-dim);
   line-height: 1.55;
   margin: 0;
 }
-:is(.luke-checkout, .luke-bundle) .lc-risk-free-content p strong {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-risk-free-content p strong {
   color: var(--lb-text);
   font-weight: 600;
 }
 
 /* ---------- BLOCK 7: WHAT HAPPENS NEXT ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-whats-next {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-whats-next {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding-top: 8px;
   margin-bottom: 28px;
 }
-:is(.luke-checkout, .luke-bundle) .lc-whats-next-item {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-whats-next-item {
   display: grid;
   grid-template-columns: 28px 1fr;
   gap: 12px;
@@ -486,18 +486,18 @@
   font-size: 14px;
   color: var(--lb-text-dim);
 }
-:is(.luke-checkout, .luke-bundle) .lc-wn-icon {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-wn-icon {
   font-size: 16px;
   line-height: 1;
   text-align: center;
 }
-:is(.luke-checkout, .luke-bundle) .lc-whats-next-item strong {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-whats-next-item strong {
   color: var(--lb-text);
   font-weight: 600;
 }
 
 /* ---------- BLOCK 8 (optional): DISCLAIMER ---------- */
-:is(.luke-checkout, .luke-bundle) .lc-disclaimer {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-disclaimer {
   font-size: 12px;
   color: var(--lb-text-faint);
   font-style: italic;
@@ -511,32 +511,32 @@
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 560px) {
-  :is(.luke-checkout, .luke-bundle) {
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) {
     padding: 0 4px 40px;
   }
-  :is(.luke-checkout, .luke-bundle) .lc-header h1 { font-size: 34px; }
-  :is(.luke-checkout, .luke-bundle) .lc-header h2 { font-size: 27px; }
-  :is(.luke-checkout, .luke-bundle) .lc-tagline { font-size: 18px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-header h1 { font-size: 34px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-header h2 { font-size: 27px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-tagline { font-size: 18px; }
 
   /* Keep the 3-column trust strip horizontal even on mobile;
      just tighten the spacing and reduce number weight. */
-  :is(.luke-checkout, .luke-bundle) .lc-trust-strip { gap: 6px; }
-  :is(.luke-checkout, .luke-bundle) .lc-trust-stat { padding: 14px 8px; }
-  :is(.luke-checkout, .luke-bundle) .lc-trust-logo { height: 22px; margin-bottom: 8px; }
-  :is(.luke-checkout, .luke-bundle) .lc-trust-number { font-size: 17px; }
-  :is(.luke-checkout, .luke-bundle) .lc-trust-label { font-size: 12px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-strip { gap: 6px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-stat { padding: 14px 8px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-logo { height: 22px; margin-bottom: 8px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-number { font-size: 17px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-trust-label { font-size: 12px; }
 
-  :is(.luke-checkout, .luke-bundle) .lc-testimonial { padding: 18px; }
-  :is(.luke-checkout, .luke-bundle) .lc-perk-content h3 { font-size: 16px; }
-  :is(.luke-checkout, .luke-bundle) .lc-students-rating { font-size: 14px; }
-  :is(.luke-checkout, .luke-bundle) .lc-student-stars-inner { font-size: 12px; letter-spacing: 0.05em; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial { padding: 18px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-perk-content h3 { font-size: 16px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-students-rating { font-size: 14px; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-student-stars-inner { font-size: 12px; letter-spacing: 0.05em; }
 }
 
 /* Respect reduced-motion: kill the cross-fade transition so slides
    swap instantly instead of animating. The carousel JS independently
    disables auto-cycling under the same media query. */
 @media (prefers-reduced-motion: reduce) {
-  :is(.luke-checkout, .luke-bundle) .lc-testimonial-slide { transition: none; }
+  :is(.luke-checkout, .luke-bundle, .luke-shopify) .lc-testimonial-slide { transition: none; }
 }
 
 /* ---------- STAGGERED FADE-IN (polish) ---------- */
@@ -544,15 +544,15 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-:is(.luke-checkout, .luke-bundle) > section,
-:is(.luke-checkout, .luke-bundle) > p.lc-disclaimer {
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > section,
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > p.lc-disclaimer {
   animation: lc-fadeUp 0.6s ease-out backwards;
 }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(1) { animation-delay: 0.00s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(2) { animation-delay: 0.08s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(3) { animation-delay: 0.16s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(4) { animation-delay: 0.24s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(5) { animation-delay: 0.32s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(6) { animation-delay: 0.40s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(7) { animation-delay: 0.48s; }
-:is(.luke-checkout, .luke-bundle) > *:nth-child(8) { animation-delay: 0.56s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(1) { animation-delay: 0.00s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(2) { animation-delay: 0.08s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(3) { animation-delay: 0.16s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(4) { animation-delay: 0.24s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(5) { animation-delay: 0.32s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(6) { animation-delay: 0.40s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(7) { animation-delay: 0.48s; }
+:is(.luke-checkout, .luke-bundle, .luke-shopify) > *:nth-child(8) { animation-delay: 0.56s; }

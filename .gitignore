@@ -33,6 +33,11 @@ checkouts/*
 !checkouts/bundles/
 !checkouts/bundles/**
 
+!shopify/
+shopify/*
+!shopify/pages/
+!shopify/pages/**
+
 # Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
 .DS_Store
 ._*
