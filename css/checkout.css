@@ -63,6 +63,13 @@
      ignore this and still get <wbr> + nbsp hints from generate.py. */
   text-wrap: balance;
 }
+
+/* Course checkout subhead: entire line brand blue, regular weight.
+   (Bundle pages use h2.lc-bundle-subhead — styled in bundle.css.) */
+.luke-checkout .lc-header h2 {
+  color: var(--lb-blue);
+  font-weight: 400;
+}
 :is(.luke-checkout, .luke-bundle) .lc-accent {
   color: var(--lb-blue);
 }
