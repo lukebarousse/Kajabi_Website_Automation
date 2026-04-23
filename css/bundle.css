@@ -16,21 +16,26 @@
   padding: 0;
 }
 
+/* Entire bundle subhead in brand blue, regular weight (no bold lead/sep). */
+.luke-bundle .lc-header h2.lc-bundle-subhead {
+  font-weight: 400;
+}
+
 .luke-bundle .lc-bundle-subhead .lb-subhead-lead {
   color: var(--lb-blue);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .luke-bundle .lc-bundle-subhead .lb-subhead-path {
   display: block;
   margin-top: 6px;
-  color: var(--lb-text);
-  font-weight: 500;
+  color: var(--lb-blue);
+  font-weight: 400;
 }
 
 .luke-bundle .lc-bundle-subhead .lb-subhead-sep {
   color: var(--lb-blue);
-  font-weight: 600;
+  font-weight: 400;
   padding: 0 0.02em;
 }
 
