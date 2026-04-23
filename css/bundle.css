@@ -1,0 +1,44 @@
+/* ============================================================
+   BUNDLE CHECKOUT PAGES
+
+   shared.css is injected by loader.js before this file (same as
+   upsell.css / checkout.css).
+
+   Loader order: shared.css → checkout.css → upsell.css → bundle.css.
+   Reuses .lc-* (checkout), .lu-* rows/receipt (nested .luke-upsell).
+
+   Keep this file small — bundle-only tweaks only.
+   ============================================================ */
+
+.luke-bundle .luke-upsell.lu-bundle-courses-wrap {
+  max-width: 100%;
+  margin: 0 auto 32px;
+  padding: 0;
+}
+
+.luke-bundle .lc-bundle-subhead .lb-subhead-lead {
+  color: var(--lb-blue);
+  font-weight: 600;
+}
+
+.luke-bundle .lc-bundle-subhead .lb-subhead-path {
+  display: block;
+  margin-top: 6px;
+  color: var(--lb-text);
+  font-weight: 500;
+}
+
+.luke-bundle .lc-bundle-subhead .lb-subhead-sep {
+  color: var(--lb-blue);
+  font-weight: 600;
+  padding: 0 0.02em;
+}
+
+.luke-bundle .lu-subtotal .lu-label {
+  font-weight: 700;
+}
+
+.luke-bundle .lu-bundle-sub-hint {
+  font-weight: 400;
+  color: var(--lb-text-faint);
+}

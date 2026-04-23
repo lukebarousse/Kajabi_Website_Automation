@@ -1,11 +1,13 @@
 /* ============================================================
    LUKE'S KAJABI CONTENT LOADER
 
-   Single script, two modes. Each Kajabi page only needs:
+   Single script, three modes. Each Kajabi page only needs:
 
      <div class="luke-upsell"   data-upsell="SLUG"></div>
      — OR —
      <div class="luke-checkout" data-checkout="COURSE-KEY"></div>
+     — OR —
+     <div class="luke-bundle"   data-bundle="BUNDLE-KEY"></div>
 
      <script src=".../js/loader.js" defer></script>
 
@@ -17,6 +19,9 @@
 
      data-checkout → inject shared.css + checkout.css,
                      fetch /checkouts/pages/COURSE-KEY
+
+     data-bundle   → inject shared.css + checkout.css + upsell.css + bundle.css,
+                     fetch /checkouts/bundles/BUNDLE-KEY
 
    Hosting: Cloudflare Pages (atomic deploys). Each deploy is
    served with `Cache-Control: public, max-age=0, must-revalidate`,
@@ -36,9 +41,11 @@
   var SHARED_CSS_URL = BASE + '/css/shared.css';
   var UPSELL_CSS_URL = BASE + '/css/upsell.css';
   var CHECKOUT_CSS_URL = BASE + '/css/checkout.css';
+  var BUNDLE_CSS_URL = BASE + '/css/bundle.css';
   var CHECKOUT_CAROUSEL_JS_URL = BASE + '/js/checkout-carousel.js';
   var UPSELL_PAGES_URL = BASE + '/upsells/pages/';
   var CHECKOUT_PAGES_URL = BASE + '/checkouts/pages/';
+  var BUNDLE_PAGES_URL = BASE + '/checkouts/bundles/';
 
   function injectStylesheet(href, marker) {
     if (document.querySelector('link[data-lb-css="' + marker + '"]')) return;
@@ -84,7 +91,7 @@
       .then(function (html) {
         container.innerHTML = html;
         container.setAttribute('data-' + kind + '-loaded', 'true');
-        if (kind === 'checkout') runCheckoutEnhancers(container);
+        if (kind === 'checkout' || kind === 'bundle') runCheckoutEnhancers(container);
       })
       .catch(function (err) {
         console.error('[luke-' + kind + '] failed to load "' + slug + '":', err);
@@ -95,9 +102,10 @@
   function init() {
     var upsells = document.querySelectorAll('.luke-upsell[data-upsell]');
     var checkouts = document.querySelectorAll('.luke-checkout[data-checkout]');
+    var bundles = document.querySelectorAll('.luke-bundle[data-bundle]');
 
-    if (upsells.length === 0 && checkouts.length === 0) {
-      console.warn('[luke-loader] no .luke-upsell or .luke-checkout containers found on page');
+    if (upsells.length === 0 && checkouts.length === 0 && bundles.length === 0) {
+      console.warn('[luke-loader] no .luke-upsell, .luke-checkout, or .luke-bundle containers found on page');
       return;
     }
 
@@ -115,6 +123,17 @@
       injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
       Array.prototype.forEach.call(checkouts, function (c) {
         loadContainer(c, 'checkout', CHECKOUT_PAGES_URL);
+      });
+    }
+
+    if (bundles.length > 0) {
+      injectStylesheet(SHARED_CSS_URL, 'shared');
+      injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
+      injectStylesheet(UPSELL_CSS_URL, 'upsell');
+      injectStylesheet(BUNDLE_CSS_URL, 'bundle');
+      injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
+      Array.prototype.forEach.call(bundles, function (c) {
+        loadContainer(c, 'bundle', BUNDLE_PAGES_URL);
       });
     }
   }

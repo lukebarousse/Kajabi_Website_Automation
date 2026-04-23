@@ -30,6 +30,8 @@ upsells/*
 checkouts/*
 !checkouts/pages/
 !checkouts/pages/**
+!checkouts/bundles/
+!checkouts/bundles/**
 
 # Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
 .DS_Store
