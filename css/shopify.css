@@ -12,27 +12,34 @@
   margin-top: 24px;
   border-top: 1px solid var(--lb-border-strong);
   padding-top: 1.25rem;
+  /* Themes often shrink description text (RTE); anchor rem/em to a readable size. */
+  font-size: 16px;
 }
 
 .luke-shopify .ls-taglines {
   text-align: center;
   margin: 0 auto 1.25rem;
   max-width: 28rem;
+  font-size: 16px;
 }
 
-.luke-shopify .ls-tagline-line,
-.luke-shopify .ls-tagline-footnote {
+/* px + clamp; !important beats theme .rte / .product__* description p {} */
+.luke-shopify .ls-taglines .ls-tagline-line,
+.luke-shopify .ls-taglines p.ls-tagline-line {
   font-style: italic;
   color: rgba(245, 245, 247, 0.88);
-  font-size: 0.95rem;
+  font-size: clamp(15px, 1rem, 17px) !important;
   line-height: 1.55;
-  margin: 0 0 0.35em;
+  margin: 0 0 0.4em;
 }
 
-.luke-shopify .ls-tagline-footnote {
+.luke-shopify .ls-taglines .ls-tagline-footnote,
+.luke-shopify .ls-taglines p.ls-tagline-footnote {
+  font-style: italic;
   color: rgba(245, 245, 247, 0.62);
-  font-size: 0.88em;
-  margin-top: 0.5em;
+  font-size: clamp(13px, 0.875rem, 15px) !important;
+  line-height: 1.5;
+  margin: 0.55em 0 0;
 }
 
 /* Match bundle checkout: nested .lu-bundle-courses-wrap inside .luke-shopify */
