@@ -5,6 +5,10 @@
 # Allow this gitignore itself
 !.gitignore
 
+# Shopify price sync (local tooling; credentials in .env)
+sync_prices.py
+requirements.txt
+
 # Cloudflare Pages rewrite/redirect rules (served from build root)
 !_redirects
 
@@ -47,6 +51,10 @@ landing/*
 courses-page/*
 !courses-page/*.html
 
+# Logs — never committed
+.logs/
+*.log
+
 # Belt-and-suspenders: block common noise even if it sneaks into allowed dirs
 .DS_Store
 ._*
@@ -59,7 +67,6 @@ __pycache__/
 *.py[cod]
 .env
 .env.*
-*.log
 .vscode/
 .idea/
 node_modules/
