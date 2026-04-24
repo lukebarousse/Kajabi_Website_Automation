@@ -22,16 +22,17 @@
    The script finds every container on the page and dispatches
    based on which attribute is present:
 
-     data-upsell                → shared + upsell.css, /upsells/pages/SLUG
+     data-upsell                → shared + kajabi-native.css + upsell.css,
+                                  /upsells/pages/SLUG
 
-     data-checkout              → shared + checkout.css + carousel,
-                                  /checkouts/pages/COURSE-KEY
+     data-checkout              → shared + checkout.css + kajabi-native.css
+                                  + carousel, /checkouts/pages/COURSE-KEY
 
-     data-bundle                → shared + checkout + upsell + bundle + carousel,
-                                  /checkouts/bundles/BUNDLE-KEY
+     data-bundle                → shared + checkout + kajabi-native + upsell
+                                  + bundle + carousel, /checkouts/bundles/KEY
 
-     data-shopify-page          → shared + checkout + upsell + shopify.css,
-                                  /shopify/pages/SLUG
+     data-shopify-page          → shared + checkout + kajabi-native + upsell
+                                  + shopify.css, /shopify/pages/SLUG
 
      data-landing-pricing       → shared + landing.css,
                                   /landing/pricing/COURSE-KEY
@@ -58,6 +59,7 @@
 
   var BASE = 'https://lukebarousse-kajabi.pages.dev';
   var SHARED_CSS_URL = BASE + '/css/shared.css';
+  var KAJABI_NATIVE_CSS_URL = BASE + '/css/kajabi-native.css';
   var UPSELL_CSS_URL = BASE + '/css/upsell.css';
   var CHECKOUT_CSS_URL = BASE + '/css/checkout.css';
   var BUNDLE_CSS_URL = BASE + '/css/bundle.css';
@@ -214,6 +216,7 @@
 
     if (upsells.length > 0) {
       injectStylesheet(SHARED_CSS_URL, 'shared');
+      injectStylesheet(KAJABI_NATIVE_CSS_URL, 'kajabi-native');
       injectStylesheet(UPSELL_CSS_URL, 'upsell');
       Array.prototype.forEach.call(upsells, function (c) {
         loadContainer(c, 'data-upsell', UPSELL_PAGES_URL);
@@ -223,6 +226,7 @@
     if (checkouts.length > 0) {
       injectStylesheet(SHARED_CSS_URL, 'shared');
       injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
+      injectStylesheet(KAJABI_NATIVE_CSS_URL, 'kajabi-native');
       injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
       Array.prototype.forEach.call(checkouts, function (c) {
         loadContainer(c, 'data-checkout', CHECKOUT_PAGES_URL, { runCarousel: true });
@@ -232,6 +236,7 @@
     if (bundles.length > 0) {
       injectStylesheet(SHARED_CSS_URL, 'shared');
       injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
+      injectStylesheet(KAJABI_NATIVE_CSS_URL, 'kajabi-native');
       injectStylesheet(UPSELL_CSS_URL, 'upsell');
       injectStylesheet(BUNDLE_CSS_URL, 'bundle');
       injectScript(CHECKOUT_CAROUSEL_JS_URL, 'checkout-carousel');
@@ -243,6 +248,7 @@
     if (shopify.length > 0) {
       injectStylesheet(SHARED_CSS_URL, 'shared');
       injectStylesheet(CHECKOUT_CSS_URL, 'checkout');
+      injectStylesheet(KAJABI_NATIVE_CSS_URL, 'kajabi-native');
       injectStylesheet(UPSELL_CSS_URL, 'upsell');
       injectStylesheet(SHOPIFY_CSS_URL, 'shopify');
       Array.prototype.forEach.call(shopify, function (c) {
