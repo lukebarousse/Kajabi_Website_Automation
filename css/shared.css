@@ -32,9 +32,9 @@
   --lb-text-dim: #a1a1aa;
   --lb-text-faint: #71717a;
 
-  /* Brand accents */
-  --lb-blue: #3b9eff;
-  --lb-blue-hover: #1a86f5;
+  /* Brand accents — same as landing CTAs (lukebarousse.com marketing blue) */
+  --lb-blue: #00b7ff;
+  --lb-blue-hover: #0098d9;
   --lb-green: #22c55e;
   --lb-green-dim: rgba(34, 197, 94, 0.15);
   --lb-amber: #f59e0b;

@@ -99,7 +99,7 @@
   font-weight: 700;
 }
 .luke-upsell .lu-icon.lu-done { background: var(--lb-green-dim); color: var(--lb-green); }
-.luke-upsell .lu-icon.lu-add { background: rgba(59, 158, 255, 0.12); color: var(--lb-blue); }
+.luke-upsell .lu-icon.lu-add { background: rgba(0, 183, 255, 0.12); color: var(--lb-blue); }
 .luke-upsell .lu-label { color: var(--lb-text); font-weight: 500; }
 .luke-upsell .lu-label small {
   display: block;
@@ -186,9 +186,9 @@
   font-size: 13px;
   font-weight: 500;
   padding: 5px 10px;
-  background: rgba(59, 158, 255, 0.08);
+  background: rgba(0, 183, 255, 0.08);
   color: var(--lb-blue);
-  border: 1px solid rgba(59, 158, 255, 0.2);
+  border: 1px solid rgba(0, 183, 255, 0.2);
   border-radius: 4px;
   letter-spacing: 0.02em;
 }
@@ -385,8 +385,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--lb-blue);
-  background: rgba(59, 158, 255, 0.08);
-  border: 1px solid rgba(59, 158, 255, 0.22);
+  background: rgba(0, 183, 255, 0.08);
+  border: 1px solid rgba(0, 183, 255, 0.22);
   padding: 7px 14px;
   border-radius: 999px;
   line-height: 1;
@@ -489,8 +489,8 @@ button[data-kjb-element],
 .upsell-offer button,
 .upsell-offer-button,
 form button[type="submit"] {
-  background: #3b9eff !important;
-  background-color: #3b9eff !important;
+  background: var(--lb-blue, #00b7ff) !important;
+  background-color: var(--lb-blue, #00b7ff) !important;
   border: none !important;
   color: white !important;
   font-family: 'Source Sans 3', 'Source Sans Pro', -apple-system, sans-serif !important;
@@ -499,7 +499,7 @@ form button[type="submit"] {
   letter-spacing: -0.01em !important;
   padding: 18px 32px !important;
   border-radius: 12px !important;
-  box-shadow: 0 10px 30px rgba(59, 158, 255, 0.25) !important;
+  box-shadow: 0 10px 30px rgba(0, 183, 255, 0.25) !important;
   transition: all 0.2s !important;
 }
 
@@ -507,9 +507,9 @@ button[data-kjb-element]:hover,
 [data-kjb-element="upsell-button"]:hover,
 .kjb-button:hover,
 .btn-primary:hover {
-  background: #1a86f5 !important;
-  background-color: #1a86f5 !important;
-  box-shadow: 0 12px 36px rgba(59, 158, 255, 0.4) !important;
+  background: var(--lb-blue-hover, #0098d9) !important;
+  background-color: var(--lb-blue-hover, #0098d9) !important;
+  box-shadow: 0 12px 36px rgba(0, 183, 255, 0.4) !important;
   transform: translateY(-1px) !important;
 }
 

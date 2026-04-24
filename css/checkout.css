@@ -281,7 +281,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  background: linear-gradient(135deg, var(--lb-blue), var(--lb-blue-hover));
   display: flex;
   align-items: center;
   justify-content: center;

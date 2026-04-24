@@ -6,9 +6,9 @@
    ============================================================ */
 
 .luke-landing-pricing {
-  /* Site marketing blue (lukebarousse.com); checkout/upsell/bundle keep --lb-blue */
-  --llp-accent: #00b7ff;
-  --llp-accent-hover: #0098d9;
+  /* Aliases: shared --lb-blue so landing + embeds always match */
+  --llp-accent: var(--lb-blue);
+  --llp-accent-hover: var(--lb-blue-hover);
 
   width: 100%;
   max-width: 920px;
