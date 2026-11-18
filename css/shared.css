@@ -73,3 +73,33 @@
 .luke-courses-individual *::after {
   box-sizing: border-box;
 }
+
+/* ============================================================
+   PRE-ORDER NOTICE (.lb-preorder)
+   Rendered by generate.py when courses.<key>.preorder is set:
+   checkout header, landing supporter card, Shopify page, /courses card.
+   ============================================================ */
+.lb-preorder {
+  display: inline-block;
+  margin: 0 auto 12px;
+  padding: 6px 12px;
+  border: 1px solid var(--lb-amber, #f59e0b);
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--lb-amber, #f59e0b);
+  font-family: var(--lb-font);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+.luke-shopify > .lb-preorder,
+.luke-courses-individual .lb-preorder {
+  display: block;
+  width: fit-content;
+}
+.luke-landing-pricing .lb-preorder {
+  display: block;
+  width: fit-content;
+  margin: 4px 0 14px;
+}
